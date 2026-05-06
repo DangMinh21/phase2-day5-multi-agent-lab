@@ -50,8 +50,8 @@ class LLMClient:
     def _complete_with_retry(self, system_prompt: str, user_prompt: str) -> LLMResponse:
         try:
             for attempt in Retrying(
-                stop=stop_after_attempt(3),
-                wait=wait_exponential(multiplier=0.5, min=0.5, max=4),
+                stop=stop_after_attempt(2),
+                wait=wait_exponential(multiplier=0.25, min=0.25, max=1),
                 reraise=True,
             ):
                 with attempt:
@@ -67,7 +67,11 @@ class LLMClient:
         except ImportError as exc:
             raise RuntimeError("openai package is not installed") from exc
 
-        client = OpenAI(api_key=self.settings.openai_api_key, timeout=self.settings.timeout_seconds)
+        client = OpenAI(
+            api_key=self.settings.openai_api_key,
+            timeout=self.settings.timeout_seconds,
+            max_retries=0,
+        )
         response = client.chat.completions.create(
             model=self.settings.openai_model,
             messages=[

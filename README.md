@@ -292,6 +292,7 @@ Generated artifacts:
 
 ```text
 reports/benchmark_report.md
+reports/traces/*_baseline_trace.json
 reports/traces/*_multi_agent_trace.json
 ```
 
@@ -333,13 +334,19 @@ Expected metrics include:
 
 ## Trace And LangSmith
 
-Local trace artifacts are always written for multi-agent runs:
+Local trace artifacts are written for both baseline and multi-agent runs:
 
 ```text
+reports/traces/*_baseline_trace.json
 reports/traces/*_multi_agent_trace.json
 ```
 
-Each trace includes:
+Baseline traces include:
+
+- `baseline_started`
+- `baseline_completed`
+
+Multi-agent traces include:
 
 - `workflow_started`
 - optional `workflow_engine_fallback`
@@ -400,8 +407,9 @@ Then show:
 1. Route timeline in CLI.
 2. Sources table and final answer.
 3. `reports/benchmark_report.md`.
-4. `reports/traces/*_multi_agent_trace.json`.
-5. LangSmith screenshot if configured.
+4. `reports/traces/*_baseline_trace.json`.
+5. `reports/traces/*_multi_agent_trace.json`.
+6. LangSmith screenshot if configured.
 
 ## Current Known Behavior
 

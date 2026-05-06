@@ -51,10 +51,13 @@ def baseline(
     _init()
     _validate_output_format(output_format)
     state = _run_baseline(query)
+    trace_path = _write_trace_artifact(state, run_kind="baseline")
+    state.set_metric("trace_path", str(trace_path))
     if output_format == "json":
         console.print_json(state.model_dump_json())
     else:
         console.print(Panel.fit(state.final_answer or "", title="Single-Agent Baseline"))
+        _render_metrics(state, trace_path)
 
 
 @app.command("multi-agent")
@@ -72,7 +75,7 @@ def multi_agent(
     state = ResearchState(request=ResearchQuery(query=query))
     workflow = MultiAgentWorkflow()
     result = workflow.run(state)
-    trace_path = _write_trace_artifact(result)
+    trace_path = _write_trace_artifact(result, run_kind="multi_agent")
     result.set_metric("trace_path", str(trace_path))
 
     if output_format == "json":
@@ -101,21 +104,24 @@ def benchmark(
     trace_paths: list[str] = []
 
     for index, query in enumerate(queries, start=1):
-        _, baseline_metrics = run_benchmark(
+        baseline_state, baseline_metrics = run_benchmark(
             f"q{index}-baseline",
             query,
             _run_baseline,
         )
+        baseline_trace_path = _write_trace_artifact(baseline_state, run_kind="baseline")
+        baseline_state.set_metric("trace_path", str(baseline_trace_path))
+        baseline_metrics.notes = f"{baseline_metrics.notes}; trace={baseline_trace_path}"
         multi_state, multi_metrics = run_benchmark(
             f"q{index}-multi-agent",
             query,
             lambda item: MultiAgentWorkflow().run(ResearchState(request=ResearchQuery(query=item))),
         )
-        trace_path = _write_trace_artifact(multi_state)
-        multi_state.set_metric("trace_path", str(trace_path))
-        multi_metrics.notes = f"{multi_metrics.notes}; trace={trace_path}"
+        multi_trace_path = _write_trace_artifact(multi_state, run_kind="multi_agent")
+        multi_state.set_metric("trace_path", str(multi_trace_path))
+        multi_metrics.notes = f"{multi_metrics.notes}; trace={multi_trace_path}"
         metrics.extend([baseline_metrics, multi_metrics])
-        trace_paths.append(str(trace_path))
+        trace_paths.extend([str(baseline_trace_path), str(multi_trace_path)])
 
     report = render_markdown_report(metrics, trace_paths=trace_paths)
     report_path = LocalArtifactStore().write_text("benchmark_report.md", report)
@@ -137,14 +143,15 @@ def _validate_output_format(output_format: str) -> None:
         raise typer.BadParameter(f"format must be one of: {supported}")
 
 
-def _write_trace_artifact(state: ResearchState) -> Path:
+def _write_trace_artifact(state: ResearchState, run_kind: str) -> Path:
     timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S%fZ")
-    filename = f"traces/{timestamp}_multi_agent_trace.json"
+    filename = f"traces/{timestamp}_{run_kind}_trace.json"
     return LocalArtifactStore().write_text(filename, state.model_dump_json(indent=2))
 
 
 def _run_baseline(query: str) -> ResearchState:
     state = ResearchState(request=ResearchQuery(query=query))
+    state.add_trace_event("baseline_started", {"engine": "single-agent"})
     llm_response = LLMClient().complete(
         system_prompt=(
             "You are a single-agent research assistant. Answer directly and mention "
@@ -167,6 +174,14 @@ def _run_baseline(query: str) -> ResearchState:
     )
     state.set_metric("engine", "single-agent")
     state.mark_completed()
+    state.add_trace_event(
+        "baseline_completed",
+        {
+            "engine": "single-agent",
+            "llm_provider": llm_response.provider,
+            "error_count": len(state.errors),
+        },
+    )
     return state
 
 

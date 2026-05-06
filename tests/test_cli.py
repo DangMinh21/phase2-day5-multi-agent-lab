@@ -72,4 +72,7 @@ def test_benchmark_cli_writes_report(monkeypatch, tmp_path) -> None:  # type: ig
     payload = json.loads(result.stdout)
     assert payload["report_path"] == "reports/benchmark_report.md"
     assert (tmp_path / payload["report_path"]).exists()
+    assert len(payload["trace_paths"]) == 2
+    assert any("baseline_trace" in path for path in payload["trace_paths"])
+    assert any("multi_agent_trace" in path for path in payload["trace_paths"])
     assert len(payload["metrics"]) == 2

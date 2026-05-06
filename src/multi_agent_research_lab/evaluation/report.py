@@ -76,7 +76,8 @@ def render_markdown_report(
             "",
             "- LangSmith screenshot showing workflow and agent spans.",
             "- CLI pretty-mode screenshot with route timeline and metrics.",
-            "- `reports/traces/*_multi_agent_trace.json` artifact.",
+            "- `reports/traces/*_baseline_trace.json` artifacts.",
+            "- `reports/traces/*_multi_agent_trace.json` artifacts.",
         ]
     )
     return "\n".join(lines) + "\n"
