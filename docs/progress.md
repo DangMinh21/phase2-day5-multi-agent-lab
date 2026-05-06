@@ -158,10 +158,46 @@ Thông tin quan trọng:
 - Khi có `LANGSMITH_API_KEY`, CLI sẽ set tracing env vars cho LangSmith/LangChain ecosystem.
 - Khi chưa có LangSmith hoặc LangGraph package, local trace artifacts vẫn đảm bảo có bằng chứng để nộp.
 
+## Commit 7: Final README And Design Cleanup
+
+Đã làm:
+
+- Rewrite README từ trạng thái starter skeleton sang hướng dẫn hệ thống đã hoàn thiện.
+- README hiện có:
+  - architecture hiện tại
+  - hybrid LLM/search/workflow/tracing behavior
+  - quickstart
+  - CLI demo commands
+  - benchmark/report artifact notes
+  - guardrails
+  - quality checks
+  - submission checklist
+- Fill `docs/design_template.md` thành design notes hoàn chỉnh:
+  - problem
+  - why multi-agent
+  - agent roles
+  - shared state
+  - routing policy
+  - guardrails
+  - benchmark plan
+  - demo evidence
+
+Để làm gì:
+
+- Tránh nộp README còn mô tả repo như skeleton/TODO.
+- Tăng độ rõ ràng khi peer review và khi chấm theo rubric.
+- Chuẩn bị tài liệu cuối để demo/report dễ theo dõi.
+
+Thông tin quan trọng:
+
+- Reports dưới `reports/*.md` và trace JSON dưới `reports/*.json` đang bị `.gitignore` ignore.
+- Nếu cần nộp generated report/traces trong git, dùng `git add -f`.
+- Final benchmark command đã tạo `reports/benchmark_report.md` và 3 trace artifacts dưới `reports/traces/`.
+
 ## Current Phase
 
-- Ready for commit: Commit 6 - benchmark report and LangSmith tracing polish.
-- Next phase: final demo pass and README/report cleanup if needed.
+- Ready for commit: Commit 7 - final README and design cleanup.
+- Next phase: generate final benchmark report and capture screenshots.
 
 Mục tiêu:
 

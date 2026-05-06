@@ -1,156 +1,422 @@
-# Lab 20: Multi-Agent Research System Starter
+# Lab 20: Multi-Agent Research System
 
-Starter repo cho bài lab **Multi-Agent Systems**: xây dựng hệ thống nghiên cứu gồm **Supervisor + Researcher + Analyst + Writer** và benchmark với single-agent baseline.
+This repository is my completed implementation for the **Multi-Agent Systems** lab. It turns the
+starter skeleton into a runnable research assistant with:
 
-> Mục tiêu của repo này là cung cấp **production-grade skeleton** để học viên phát triển code cá nhân. Các phần logic quan trọng được để ở dạng `TODO` để học viên tự triển khai.
+- a single-agent baseline
+- a Supervisor + Researcher + Analyst + Writer workflow
+- LangGraph orchestration when installed
+- hybrid OpenAI/mock LLM execution
+- hybrid Tavily/local search execution
+- guardrails, retries, fallback paths, structured state, logs, trace artifacts
+- benchmark reporting for baseline vs multi-agent runs
+- a Rich CLI demo suitable for screen recording and grading
 
-## Learning outcomes
+The project is designed to run both:
 
-Sau 2 giờ lab, học viên cần có thể:
+- **Online**: OpenAI + Tavily + LangSmith keys configured.
+- **Offline**: deterministic mock LLM, local mock search corpus, local JSON traces.
 
-1. Thiết kế role rõ ràng cho nhiều agent.
-2. Xây dựng shared state đủ thông tin cho handoff.
-3. Thêm guardrail tối thiểu: max iterations, timeout, retry/fallback, validation.
-4. Trace được luồng chạy và giải thích agent nào làm gì.
-5. Benchmark single-agent vs multi-agent theo quality, latency, cost.
+## Grading Map
 
-## Architecture mục tiêu
+| Rubric Area | Where To Look | Evidence |
+|---|---|---|
+| Role clarity | `src/multi_agent_research_lab/agents/` | Supervisor routes, Researcher collects sources, Analyst structures insights, Writer synthesizes final answer. |
+| State design | `src/multi_agent_research_lab/core/state.py` | Shared `ResearchState` tracks request, routes, sources, notes, final answer, metrics, errors, trace events. |
+| Failure guard | `services/`, `agents/supervisor.py`, `graph/workflow.py` | Max iterations, retries, timeout config, mock fallback, local workflow fallback. |
+| Benchmark | `src/multi_agent_research_lab/evaluation/`, `reports/benchmark_report.md` | Baseline vs multi-agent metrics table. |
+| Trace explanation | `reports/traces/`, CLI pretty output, LangSmith if configured | Route timeline, agent results, local trace JSON, LangSmith-ready env config. |
+
+## System Overview
 
 ```text
 User Query
    |
-   v
-Supervisor / Router
-   |------> Researcher Agent  -> research_notes
-   |------> Analyst Agent     -> analysis_notes
-   |------> Writer Agent      -> final_answer
+   |-- baseline
+   |     `-- Single LLM call
    |
-   v
-Trace + Benchmark Report
+   `-- multi-agent
+         |
+         `-- Supervisor
+               |
+               |-- Researcher -> sources + research_notes
+               |-- Analyst    -> analysis_notes
+               |-- Writer     -> final_answer with source references
+               `-- Done
 ```
 
-## Cấu trúc repo
+The workflow uses a shared Pydantic state object:
 
 ```text
-.
-├── src/multi_agent_research_lab/
-│   ├── agents/              # Agent interfaces + skeletons
-│   ├── core/                # Config, state, schemas, errors
-│   ├── graph/               # LangGraph workflow skeleton
-│   ├── services/            # LLM, search, storage clients
-│   ├── evaluation/          # Benchmark/evaluation skeleton
-│   ├── observability/       # Logging/tracing hooks
-│   └── cli.py               # CLI entrypoint
-├── configs/                 # YAML configs for lab variants
-├── docs/                    # Lab guide, rubric, design notes
-├── tests/                   # Unit tests for skeleton behavior
-├── notebooks/               # Optional notebook entrypoint
-├── scripts/                 # Helper scripts
-├── .env.example             # Environment variables template
-├── pyproject.toml           # Python project config
-├── Dockerfile               # Containerized dev/runtime
-└── Makefile                 # Common commands
+ResearchState
+├── request
+├── next_route
+├── route_history
+├── sources
+├── research_notes
+├── analysis_notes
+├── final_answer
+├── agent_results
+├── trace
+├── errors
+└── metrics
 ```
 
-## Quickstart
+## Architecture
 
-### 1. Tạo môi trường
+```text
+src/multi_agent_research_lab/
+├── agents/
+│   ├── supervisor.py      # routing and max-iteration guard
+│   ├── researcher.py      # search + source-grounded research notes
+│   ├── analyst.py         # claims, tradeoffs, weak evidence
+│   └── writer.py          # final answer and source references
+├── core/
+│   ├── config.py          # env-based runtime settings
+│   ├── schemas.py         # public Pydantic schemas
+│   ├── state.py           # shared workflow state
+│   └── errors.py
+├── graph/
+│   └── workflow.py        # LangGraph workflow with local fallback
+├── services/
+│   ├── llm_client.py      # OpenAI + mock fallback
+│   ├── search_client.py   # Tavily + local corpus fallback
+│   └── storage.py         # local artifact writer
+├── evaluation/
+│   ├── benchmark.py       # metrics collection
+│   └── report.py          # markdown report rendering
+├── observability/
+│   ├── logging.py
+│   └── tracing.py         # LangSmith env setup + local span helper
+└── cli.py                 # Typer + Rich CLI
+```
+
+## Setup
+
+Create and activate a virtual environment:
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
-pip install -e "[dev]"
+source .venv/bin/activate
+```
+
+Install the project with development and LLM extras:
+
+```bash
+pip install -e ".[dev,llm]"
+```
+
+Create your local environment file:
+
+```bash
 cp .env.example .env
 ```
 
-### 2. Cấu hình API keys
-
-Mở `.env` và điền key cần thiết.
+Optional online configuration:
 
 ```bash
 OPENAI_API_KEY=...
-# optional
-LANGSMITH_API_KEY=...
+OPENAI_MODEL=gpt-4o-mini
 TAVILY_API_KEY=...
+LANGSMITH_API_KEY=...
+LANGSMITH_PROJECT=multi-agent-research-lab
+MAX_ITERATIONS=6
+TIMEOUT_SECONDS=60
+LOG_LEVEL=INFO
 ```
 
-### 3. Chạy smoke test
+No key is required for offline demo/testing.
+
+## Verify Installation
+
+Run the test/lint/typecheck suite:
 
 ```bash
 make test
-python -m multi_agent_research_lab.cli --help
+make lint
+make typecheck
 ```
 
-### 4. Chạy baseline skeleton
+Expected result:
+
+```text
+18 passed
+All checks passed!
+Success: no issues found
+```
+
+Check CLI help:
 
 ```bash
-python -m multi_agent_research_lab.cli baseline \
-  --query "Research GraphRAG state-of-the-art and write a 500-word summary"
+malab --help
 ```
 
-Lệnh này chỉ chạy khung baseline tối giản. Học viên cần tự triển khai logic LLM thực tế trong `src/multi_agent_research_lab/services/llm_client.py`.
+Expected commands:
 
-### 5. Chạy multi-agent skeleton
+```text
+baseline
+multi-agent
+benchmark
+```
+
+If `malab` is unavailable, use:
 
 ```bash
-python -m multi_agent_research_lab.cli multi-agent \
-  --query "Research GraphRAG state-of-the-art and write a 500-word summary"
+PYTHONPATH=src python -m multi_agent_research_lab.cli --help
 ```
 
-Mặc định lệnh sẽ báo các `TODO` cần làm. Đây là chủ đích của starter repo.
+## Run Baseline
 
-## Milestones trong 2 giờ lab
-
-| Thời lượng | Milestone | File gợi ý |
-|---:|---|---|
-| 0-15' | Setup, chạy baseline skeleton | `cli.py`, `services/llm_client.py` |
-| 15-45' | Build Supervisor / router | `agents/supervisor.py`, `graph/workflow.py` |
-| 45-75' | Thêm Researcher, Analyst, Writer | `agents/*.py`, `core/state.py` |
-| 75-95' | Trace + benchmark single vs multi | `observability/tracing.py`, `evaluation/benchmark.py` |
-| 95-115' | Peer review theo rubric | `docs/peer_review_rubric.md` |
-| 115-120' | Exit ticket | `docs/lab_guide.md` |
-
-## Quy ước production trong repo
-
-- Tách rõ `agents`, `services`, `core`, `graph`, `evaluation`, `observability`.
-- Không hard-code API key trong code.
-- Tất cả input/output chính dùng Pydantic schema.
-- Có type hints, linting, formatting, unit test tối thiểu.
-- Có logging/tracing hook ngay từ đầu.
-- Không để agent chạy vô hạn: dùng `max_iterations`, `timeout_seconds`.
-- Có benchmark report thay vì chỉ demo output đẹp.
-
-## TODO chính cho học viên
-
-Tìm trong code các marker:
+Pretty mode:
 
 ```bash
-grep -R "TODO(student)" -n src tests docs
+malab baseline \
+  --query "Compare single-agent and multi-agent workflows for customer support" \
+  --format pretty
 ```
 
-Các phần học viên cần tự làm:
+Expected output:
 
-1. Implement LLM client.
-2. Implement web/search client hoặc mock search source.
-3. Implement routing decision trong Supervisor.
-4. Implement từng worker agent.
-5. Build LangGraph workflow.
-6. Thêm tracing provider thật: LangSmith, Langfuse hoặc OpenTelemetry.
-7. Viết benchmark report.
+- a `Single-Agent Baseline` panel
+- one direct answer
+- if no `OPENAI_API_KEY` is set, the answer clearly uses the deterministic mock fallback
 
-## Deliverables
+JSON mode:
 
-Học viên nộp:
+```bash
+malab baseline \
+  --query "Compare single-agent and multi-agent workflows for customer support" \
+  --format json
+```
 
-1. GitHub repo cá nhân.
-2. Screenshot trace hoặc link trace.
-3. `reports/benchmark_report.md` so sánh single vs multi-agent.
-4. Một đoạn giải thích failure mode và cách fix.
+Expected JSON fields:
 
-## References
+- `request`
+- `final_answer`
+- `agent_results`
+- `metrics.engine = "single-agent"`
 
-- Anthropic: Building effective agents — https://www.anthropic.com/engineering/building-effective-agents
-- OpenAI Agents SDK orchestration/handoffs — https://developers.openai.com/api/docs/guides/agents/orchestration
-- LangGraph concepts — https://langchain-ai.github.io/langgraph/concepts/
-- LangSmith tracing — https://docs.smith.langchain.com/
-- Langfuse tracing — https://langfuse.com/docs
+## Run Multi-Agent Demo
+
+Pretty mode:
+
+```bash
+malab multi-agent \
+  --query "Compare single-agent and multi-agent workflows for customer support" \
+  --format pretty
+```
+
+Expected output sections:
+
+- `Research Query` panel
+- `Route Timeline` table
+- `Sources` table
+- `Agent Results` table
+- `Final Answer` panel
+- `Run Metrics` table
+
+Expected route timeline:
+
+```text
+researcher -> analyst -> writer -> done
+```
+
+Expected metrics:
+
+- `Engine`: `langgraph` if LangGraph is installed and active, otherwise `local-loop`
+- `Iterations`: usually `4`
+- `Sources`: usually `5`
+- `Errors`: `0`
+- `Trace artifact`: path under `reports/traces/`
+
+JSON mode:
+
+```bash
+malab multi-agent \
+  --query "Compare single-agent and multi-agent workflows for customer support" \
+  --format json
+```
+
+Expected JSON fields:
+
+- `route_history`
+- `sources`
+- `research_notes`
+- `analysis_notes`
+- `final_answer`
+- `agent_results`
+- `trace`
+- `errors`
+- `metrics.trace_path`
+
+## Run Benchmark
+
+Pretty mode:
+
+```bash
+malab benchmark --format pretty
+```
+
+Expected output:
+
+```text
+Benchmark Summary
+q1-baseline
+q1-multi-agent
+q2-baseline
+q2-multi-agent
+q3-baseline
+q3-multi-agent
+reports/benchmark_report.md
+```
+
+JSON mode:
+
+```bash
+malab benchmark --format json
+```
+
+Expected JSON fields:
+
+- `report_path`
+- `trace_paths`
+- `metrics`
+
+The benchmark uses queries from:
+
+```text
+configs/lab_default.yaml
+```
+
+Generated artifacts:
+
+```text
+reports/benchmark_report.md
+reports/traces/*_multi_agent_trace.json
+```
+
+Note: `.gitignore` ignores generated reports and traces. If the grader expects these files committed,
+force-add them:
+
+```bash
+git add -f reports/benchmark_report.md
+git add -f reports/traces/*.json
+```
+
+## Expected Benchmark Report
+
+Open:
+
+```bash
+cat reports/benchmark_report.md
+```
+
+Expected sections:
+
+- `Summary`
+- `Metrics`
+- `Trace Evidence`
+- `Qualitative Notes`
+- `Failure Modes And Fixes`
+- `Demo Evidence To Attach`
+
+Expected metrics include:
+
+- latency
+- estimated cost
+- input tokens
+- output tokens
+- source count
+- citation coverage
+- failure count
+- notes with engine, iterations, and trace path
+
+## Trace And LangSmith
+
+Local trace artifacts are always written for multi-agent runs:
+
+```text
+reports/traces/*_multi_agent_trace.json
+```
+
+Each trace includes:
+
+- `workflow_started`
+- optional `workflow_engine_fallback`
+- `route_decision`
+- `agent_completed`
+- `workflow_completed`
+
+For LangSmith:
+
+1. Set `LANGSMITH_API_KEY` and `LANGSMITH_PROJECT` in `.env`.
+2. Install with `pip install -e ".[dev,llm]"`.
+3. Run a multi-agent or benchmark command.
+4. Open LangSmith and capture a trace screenshot for the final report.
+
+The code configures LangSmith-compatible environment variables in
+`src/multi_agent_research_lab/observability/tracing.py`.
+
+## Guardrails And Fallbacks
+
+| Guardrail | Implementation |
+|---|---|
+| Max iterations | `SupervisorAgent` checks `MAX_ITERATIONS`; graph also uses recursion limit. |
+| Timeout | Provider clients use `TIMEOUT_SECONDS`. |
+| Retry | OpenAI and Tavily calls retry with `tenacity`. |
+| LLM fallback | Missing/failing OpenAI -> deterministic mock response. |
+| Search fallback | Missing/failing Tavily -> local mock corpus. |
+| Workflow fallback | Missing LangGraph package -> bounded local loop. |
+| Validation | Pydantic schemas and explicit prompt/query validation. |
+| Traceability | State trace events and local JSON artifacts. |
+
+## Important Files For Review
+
+- `docs/design_template.md`: design notes for architecture/rubric review.
+- `docs/progress.md`: commit-by-commit implementation log.
+- `docs/peer_review_rubric.md`: official review rubric.
+- `reports/benchmark_report.md`: generated benchmark comparison.
+- `reports/traces/`: local trace artifacts.
+- `tests/`: unit and CLI smoke tests.
+
+## Demo Script For Grading
+
+Recommended flow:
+
+```bash
+make test
+make lint
+make typecheck
+
+malab multi-agent \
+  --query "Compare single-agent and multi-agent workflows for customer support" \
+  --format pretty
+
+malab benchmark --format pretty
+```
+
+Then show:
+
+1. Route timeline in CLI.
+2. Sources table and final answer.
+3. `reports/benchmark_report.md`.
+4. `reports/traces/*_multi_agent_trace.json`.
+5. LangSmith screenshot if configured.
+
+## Current Known Behavior
+
+- If API keys are missing, output will mention mock/local fallback metadata.
+- If LangGraph is not installed, the workflow uses `local-loop` and records this in trace/metrics.
+- This is intentional so tests and demos remain reliable in restricted environments.
+
+## Submission Checklist
+
+- [ ] `pytest` passes.
+- [ ] `ruff check src tests` passes.
+- [ ] `mypy src` passes.
+- [ ] `malab multi-agent --format pretty` runs.
+- [ ] `malab benchmark --format pretty` runs.
+- [ ] `reports/benchmark_report.md` exists.
+- [ ] At least one trace artifact exists under `reports/traces/`.
+- [ ] LangSmith screenshot captured if API key is available.
+- [ ] Final report/traces are force-added if required by submission rules.
