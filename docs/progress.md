@@ -90,14 +90,42 @@ Thông tin quan trọng:
 - Môi trường hiện tại chưa install `langgraph`, nên smoke test dùng fallback `local-loop`.
 - Để chạy graph engine thật: dùng `make install` trước demo.
 
+## Commit 5: Add CLI Pretty/JSON Demo And Trace Artifacts
+
+Đã làm:
+
+- Add `--format pretty|json` cho `baseline` và `multi-agent`.
+- Pretty mode hiển thị:
+  - query panel
+  - route timeline
+  - sources table
+  - agent results table
+  - final answer panel
+  - run metrics table
+- JSON mode in full serialized `ResearchState` để debug/pipe vào tool khác.
+- Multi-agent run tự ghi trace artifact vào `reports/traces/*_multi_agent_trace.json`.
+- Add CLI tests cho JSON output và invalid format handling.
+
+Để làm gì:
+
+- Làm CLI đủ đẹp để demo trực tiếp hoặc quay màn hình.
+- Giữ JSON mode sạch để dễ inspect state, trace, metrics.
+- Tạo local trace artifact làm bằng chứng fallback nếu LangSmith chưa sẵn sàng.
+
+Thông tin quan trọng:
+
+- Verification: `pytest`, `ruff check src tests`, `mypy src` passed.
+- Pretty smoke test passed trong thư mục tạm bằng `PYTHONPATH=... python -m multi_agent_research_lab.cli multi-agent --query "..." --format pretty`.
+- Trace artifact được ghi tương đối dưới `reports/traces/`.
+
 ## Current Phase
 
-- Ready for commit: Commit 4 - LangGraph workflow integration.
-- Next phase: Commit 5 - CLI pretty/json demo and artifacts.
+- Ready for commit: Commit 5 - CLI pretty/json demo and trace artifacts.
+- Next phase: Commit 6 - benchmark report and LangSmith tracing polish.
 
 Mục tiêu:
 
-- Add `--format pretty|json`.
-- Pretty mode: query panel, route timeline, sources table, final answer, metrics.
-- JSON mode: valid JSON without Rich markup issues.
-- Write local trace artifacts under `reports/traces/`.
+- Implement richer benchmark metrics.
+- Add `benchmark` CLI command with pretty/json modes.
+- Render `reports/benchmark_report.md`.
+- Add LangSmith-oriented tracing configuration/evidence notes.
