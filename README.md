@@ -1,5 +1,9 @@
 # Lab 20: Multi-Agent Research System
 
+**Học viên: Đặng Văn Minh**
+
+**MSHV: 2A202600027**
+
 This repository is my completed implementation for the **Multi-Agent Systems** lab. It turns the
 starter skeleton into a runnable research assistant with:
 
