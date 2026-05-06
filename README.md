@@ -441,12 +441,12 @@ Then show:
 
 ## Submission Checklist
 
-- [ ] `pytest` passes.
-- [ ] `ruff check src tests` passes.
-- [ ] `mypy src` passes.
-- [ ] `malab multi-agent --format pretty` runs.
-- [ ] `malab benchmark --format pretty` runs.
-- [ ] `reports/benchmark_report.md` exists.
-- [ ] At least one trace artifact exists under `reports/traces/`.
-- [ ] LangSmith screenshot captured if API key is available.
-- [ ] Final report/traces are force-added if required by submission rules.
+- [x] `pytest` passes.
+- [x] `ruff check src tests` passes.
+- [x] `mypy src` passes.
+- [x] `malab multi-agent --format pretty` runs.
+- [x] `malab benchmark --format pretty` runs.
+- [x] `reports/benchmark_report.md` exists.
+- [x] At least one trace artifact exists under `reports/traces/`.
+- [x] LangSmith screenshot captured if API key is available.
+- [x] Final report/traces are force-added if required by submission rules.
