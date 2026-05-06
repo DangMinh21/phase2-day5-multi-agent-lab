@@ -118,14 +118,54 @@ Thông tin quan trọng:
 - Pretty smoke test passed trong thư mục tạm bằng `PYTHONPATH=... python -m multi_agent_research_lab.cli multi-agent --query "..." --format pretty`.
 - Trace artifact được ghi tương đối dưới `reports/traces/`.
 
+## Commit 6: Add Benchmark Report And LangSmith Tracing Polish
+
+Đã làm:
+
+- Enrich benchmark metrics:
+  - latency
+  - estimated cost
+  - input/output tokens
+  - source count
+  - citation coverage
+  - failure count
+  - notes with engine/iterations/errors
+- Add richer markdown report renderer with:
+  - summary
+  - metrics table
+  - trace evidence section
+  - qualitative comparison
+  - failure modes and mitigations
+  - demo evidence checklist
+- Add `benchmark` CLI command with `--format pretty|json` and `--config`.
+- Benchmark command runs baseline and multi-agent for configured queries.
+- Benchmark command writes `reports/benchmark_report.md`.
+- Multi-agent trace artifacts now use microsecond timestamps to avoid overwrite.
+- Add LangSmith environment configuration when `LANGSMITH_API_KEY` is set.
+- Writer now appends source references if the model output omits citation markers.
+- Add CLI benchmark test.
+
+Để làm gì:
+
+- Hoàn thiện rubric benchmark và trace explanation.
+- Tạo report markdown có thể nộp/sửa trực tiếp.
+- Chuẩn bị cho demo có cả local trace artifact và LangSmith screenshot.
+
+Thông tin quan trọng:
+
+- Verification: `pytest`, `ruff check src tests`, `mypy src` passed.
+- Benchmark smoke test passed trong thư mục tạm.
+- Khi có `LANGSMITH_API_KEY`, CLI sẽ set tracing env vars cho LangSmith/LangChain ecosystem.
+- Khi chưa có LangSmith hoặc LangGraph package, local trace artifacts vẫn đảm bảo có bằng chứng để nộp.
+
 ## Current Phase
 
-- Ready for commit: Commit 5 - CLI pretty/json demo and trace artifacts.
-- Next phase: Commit 6 - benchmark report and LangSmith tracing polish.
+- Ready for commit: Commit 6 - benchmark report and LangSmith tracing polish.
+- Next phase: final demo pass and README/report cleanup if needed.
 
 Mục tiêu:
 
-- Implement richer benchmark metrics.
-- Add `benchmark` CLI command with pretty/json modes.
-- Render `reports/benchmark_report.md`.
-- Add LangSmith-oriented tracing configuration/evidence notes.
+- Run full demo commands after installing optional dependencies if desired.
+- Generate final `reports/benchmark_report.md`.
+- Capture LangSmith screenshot and add it to the report manually.
+- Do a final pass over README/report before submission.

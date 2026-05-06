@@ -44,3 +44,32 @@ def test_multi_agent_cli_rejects_unknown_format() -> None:
 
     assert result.exit_code != 0
     assert "format must be one of" in result.output
+
+
+def test_benchmark_cli_writes_report(monkeypatch, tmp_path) -> None:  # type: ignore[no-untyped-def]
+    monkeypatch.chdir(tmp_path)
+    config_path = tmp_path / "benchmark.yaml"
+    config_path.write_text(
+        "benchmark:\n"
+        "  queries:\n"
+        "    - Explain LangGraph tracing\n",
+        encoding="utf-8",
+    )
+    runner = CliRunner()
+
+    result = runner.invoke(
+        app,
+        [
+            "benchmark",
+            "--config",
+            str(config_path),
+            "--format",
+            "json",
+        ],
+    )
+
+    assert result.exit_code == 0
+    payload = json.loads(result.stdout)
+    assert payload["report_path"] == "reports/benchmark_report.md"
+    assert (tmp_path / payload["report_path"]).exists()
+    assert len(payload["metrics"]) == 2

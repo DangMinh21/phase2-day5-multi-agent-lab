@@ -34,7 +34,7 @@ class WriterAgent(BaseAgent):
                     "Write the final answer with a short limitations section."
                 ),
             )
-            state.final_answer = llm_response.content
+            state.final_answer = self._ensure_source_references(llm_response.content, state)
 
         state.add_trace_event(
             "agent_completed",
@@ -70,3 +70,13 @@ class WriterAgent(BaseAgent):
             url = source.url or "local"
             lines.append(f"[{index}] {source.title} - {url}")
         return "\n".join(lines)
+
+    @classmethod
+    def _ensure_source_references(cls, answer: str, state: ResearchState) -> str:
+        has_citations = any(
+            f"[{index}]" in answer
+            for index in range(1, len(state.sources) + 1)
+        )
+        if not state.sources or has_citations:
+            return answer
+        return f"{answer}\n\nSource references:\n{cls._format_source_list(state)}"

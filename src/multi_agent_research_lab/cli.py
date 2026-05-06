@@ -5,15 +5,26 @@ from pathlib import Path
 from typing import Annotated
 
 import typer
+import yaml  # type: ignore[import-untyped]
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
 from multi_agent_research_lab.core.config import get_settings
-from multi_agent_research_lab.core.schemas import ResearchQuery
+from multi_agent_research_lab.core.schemas import (
+    AgentName,
+    AgentResult,
+    BenchmarkMetrics,
+    ResearchQuery,
+    UsageMetadata,
+)
 from multi_agent_research_lab.core.state import ResearchState
+from multi_agent_research_lab.evaluation.benchmark import run_benchmark
+from multi_agent_research_lab.evaluation.report import render_markdown_report
 from multi_agent_research_lab.graph.workflow import MultiAgentWorkflow
 from multi_agent_research_lab.observability.logging import configure_logging
+from multi_agent_research_lab.observability.tracing import configure_langsmith
+from multi_agent_research_lab.services.llm_client import LLMClient
 from multi_agent_research_lab.services.storage import LocalArtifactStore
 
 app = typer.Typer(help="Multi-Agent Research Lab starter CLI")
@@ -24,6 +35,7 @@ SUPPORTED_FORMATS = {"pretty", "json"}
 def _init() -> None:
     settings = get_settings()
     configure_logging(settings.log_level)
+    configure_langsmith(settings)
 
 
 @app.command()
@@ -38,17 +50,11 @@ def baseline(
 
     _init()
     _validate_output_format(output_format)
-    request = ResearchQuery(query=query)
-    state = ResearchState(request=request)
-    state.final_answer = (
-        "Baseline skeleton response. TODO(student): replace this with a real single-agent "
-        "implementation and record latency/cost/quality metrics."
-    )
-    state.mark_completed()
+    state = _run_baseline(query)
     if output_format == "json":
         console.print_json(state.model_dump_json())
     else:
-        console.print(Panel.fit(state.final_answer, title="Single-Agent Baseline"))
+        console.print(Panel.fit(state.final_answer or "", title="Single-Agent Baseline"))
 
 
 @app.command("multi-agent")
@@ -75,6 +81,56 @@ def multi_agent(
         _render_pretty_result(result, trace_path)
 
 
+@app.command()
+def benchmark(
+    output_format: Annotated[
+        str,
+        typer.Option("--format", "-f", help="Output format: pretty or json"),
+    ] = "pretty",
+    config_path: Annotated[
+        Path,
+        typer.Option("--config", "-c", help="Benchmark YAML config"),
+    ] = Path("configs/lab_default.yaml"),
+) -> None:
+    """Run baseline vs multi-agent benchmark and write a markdown report."""
+
+    _init()
+    _validate_output_format(output_format)
+    queries = _load_benchmark_queries(config_path)
+    metrics = []
+    trace_paths: list[str] = []
+
+    for index, query in enumerate(queries, start=1):
+        _, baseline_metrics = run_benchmark(
+            f"q{index}-baseline",
+            query,
+            _run_baseline,
+        )
+        multi_state, multi_metrics = run_benchmark(
+            f"q{index}-multi-agent",
+            query,
+            lambda item: MultiAgentWorkflow().run(ResearchState(request=ResearchQuery(query=item))),
+        )
+        trace_path = _write_trace_artifact(multi_state)
+        multi_state.set_metric("trace_path", str(trace_path))
+        multi_metrics.notes = f"{multi_metrics.notes}; trace={trace_path}"
+        metrics.extend([baseline_metrics, multi_metrics])
+        trace_paths.append(str(trace_path))
+
+    report = render_markdown_report(metrics, trace_paths=trace_paths)
+    report_path = LocalArtifactStore().write_text("benchmark_report.md", report)
+
+    if output_format == "json":
+        payload = {
+            "report_path": str(report_path),
+            "trace_paths": trace_paths,
+            "metrics": [item.model_dump(mode="json") for item in metrics],
+        }
+        console.print_json(data=payload)
+    else:
+        _render_benchmark_summary(metrics, report_path)
+
+
 def _validate_output_format(output_format: str) -> None:
     if output_format not in SUPPORTED_FORMATS:
         supported = ", ".join(sorted(SUPPORTED_FORMATS))
@@ -82,9 +138,46 @@ def _validate_output_format(output_format: str) -> None:
 
 
 def _write_trace_artifact(state: ResearchState) -> Path:
-    timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+    timestamp = datetime.now(UTC).strftime("%Y%m%dT%H%M%S%fZ")
     filename = f"traces/{timestamp}_multi_agent_trace.json"
     return LocalArtifactStore().write_text(filename, state.model_dump_json(indent=2))
+
+
+def _run_baseline(query: str) -> ResearchState:
+    state = ResearchState(request=ResearchQuery(query=query))
+    llm_response = LLMClient().complete(
+        system_prompt=(
+            "You are a single-agent research assistant. Answer directly and mention "
+            "limitations when evidence is incomplete."
+        ),
+        user_prompt=f"Query: {query}\nWrite a concise research answer.",
+    )
+    state.final_answer = llm_response.content
+    state.add_agent_result(
+        AgentResult(
+            agent=AgentName.WRITER,
+            content=llm_response.content,
+            metadata={"mode": "single-agent", "llm_provider": llm_response.provider},
+            usage=UsageMetadata(
+                input_tokens=llm_response.input_tokens,
+                output_tokens=llm_response.output_tokens,
+                estimated_cost_usd=llm_response.cost_usd,
+            ),
+        )
+    )
+    state.set_metric("engine", "single-agent")
+    state.mark_completed()
+    return state
+
+
+def _load_benchmark_queries(config_path: Path) -> list[str]:
+    config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+    queries = config.get("benchmark", {}).get("queries", [])
+    if not isinstance(queries, list) or not all(isinstance(item, str) for item in queries):
+        raise typer.BadParameter("benchmark.queries must be a list of strings")
+    if not queries:
+        raise typer.BadParameter("benchmark.queries must not be empty")
+    return queries
 
 
 def _render_pretty_result(state: ResearchState, trace_path: Path) -> None:
@@ -149,6 +242,30 @@ def _render_metrics(state: ResearchState, trace_path: Path) -> None:
     table.add_row("Duration", f"{state.metrics.get('duration_seconds', 0):.3f}s")
     table.add_row("Trace artifact", str(trace_path))
     console.print(table)
+
+
+def _render_benchmark_summary(metrics: list[BenchmarkMetrics], report_path: Path) -> None:
+    table = Table(title="Benchmark Summary")
+    table.add_column("Run")
+    table.add_column("Latency", justify="right")
+    table.add_column("Sources", justify="right")
+    table.add_column("Citation", justify="right")
+    table.add_column("Failures", justify="right")
+    for metric in metrics:
+        citation = (
+            "-"
+            if metric.citation_coverage is None
+            else f"{metric.citation_coverage * 100:.0f}%"
+        )
+        table.add_row(
+            metric.run_name,
+            f"{metric.latency_seconds:.2f}s",
+            str(metric.source_count),
+            citation,
+            str(metric.failure_count),
+        )
+    console.print(table)
+    console.print(Panel.fit(str(report_path), title="Benchmark Report"))
 
 
 def _format_tokens(input_tokens: int | None, output_tokens: int | None) -> str:
