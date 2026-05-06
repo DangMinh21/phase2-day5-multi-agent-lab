@@ -65,14 +65,39 @@ Thông tin quan trọng:
 - Tests hiện chạy offline bằng mock LLM/search, không cần API keys.
 - Supervisor đã có guardrail `max_iterations`.
 
+## Commit 4: Add LangGraph Workflow Integration
+
+Đã làm:
+
+- Implement `MultiAgentWorkflow.build()` bằng LangGraph `StateGraph` khi package `langgraph` được install.
+- Add nodes: `supervisor`, `researcher`, `analyst`, `writer`.
+- Add conditional edges từ supervisor theo `state.next_route`.
+- Add worker edges quay về supervisor để tiếp tục route.
+- Implement `MultiAgentWorkflow.run()` trả về `ResearchState` hoàn chỉnh.
+- Add local-loop fallback khi môi trường chưa install LangGraph, có trace event rõ ràng nhưng không tính là workflow error.
+- Add workflow tests cho end-to-end offline run và JSON serialization.
+
+Để làm gì:
+
+- Biến các agent rời rạc thành một workflow có orchestration rõ ràng.
+- Đáp ứng yêu cầu dùng LangGraph thật trong môi trường production/demo đầy đủ.
+- Giữ demo/test không bị vỡ nếu máy chưa cài optional dependency.
+
+Thông tin quan trọng:
+
+- Verification: `pytest`, `ruff check src tests`, `mypy src` passed.
+- CLI smoke test chạy được với `PYTHONPATH=src python -m multi_agent_research_lab.cli multi-agent --query "..."`
+- Môi trường hiện tại chưa install `langgraph`, nên smoke test dùng fallback `local-loop`.
+- Để chạy graph engine thật: dùng `make install` trước demo.
+
 ## Current Phase
 
-- Ready for commit: Commit 3 - implement agents and routing behavior.
-- Next phase: Commit 4 - LangGraph workflow integration.
+- Ready for commit: Commit 4 - LangGraph workflow integration.
+- Next phase: Commit 5 - CLI pretty/json demo and artifacts.
 
 Mục tiêu:
 
-- Build `StateGraph` với supervisor/researcher/analyst/writer nodes.
-- Add conditional edges theo `state.next_route`.
-- `MultiAgentWorkflow.run` trả về `ResearchState` hoàn chỉnh.
-- CLI `multi-agent` bắt đầu chạy được end-to-end.
+- Add `--format pretty|json`.
+- Pretty mode: query panel, route timeline, sources table, final answer, metrics.
+- JSON mode: valid JSON without Rich markup issues.
+- Write local trace artifacts under `reports/traces/`.
