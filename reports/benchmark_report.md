@@ -25,6 +25,28 @@ Metrics are collected from runtime state, agent usage metadata, and trace events
 - Local trace artifact: `reports/traces/20260506T054541183850Z_baseline_trace.json`
 - Local trace artifact: `reports/traces/20260506T054543637621Z_multi_agent_trace.json`
 
+## Demo Screenshots
+
+Baseline CLI output:
+
+![Baseline CLI example](../photos/run_baseline_example.png)
+
+Multi-agent progress and route/source visibility:
+
+![Multi-agent progress](../photos/run-multi-agent-progress.png)
+
+Multi-agent final answer:
+
+![Multi-agent final answer](../photos/run-multi-agent-final-anwer.png)
+
+Multi-agent run metrics:
+
+![Multi-agent metrics](../photos/run-muliti-agent-metrics.png)
+
+LangSmith trace screenshot:
+
+![LangSmith trace screenshot](../photos/langsmith-screenshot.png)
+
 ## Qualitative Notes
 
 - Single-agent baseline is simpler and usually lower overhead.

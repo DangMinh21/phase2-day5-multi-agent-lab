@@ -181,6 +181,10 @@ Expected output:
 - one direct answer
 - if no `OPENAI_API_KEY` is set, the answer clearly uses the deterministic mock fallback
 
+Example screenshot:
+
+![Baseline CLI example](photos/run_baseline_example.png)
+
 JSON mode:
 
 ```bash
@@ -228,6 +232,20 @@ Expected metrics:
 - `Sources`: usually `5`
 - `Errors`: `0`
 - `Trace artifact`: path under `reports/traces/`
+
+Example screenshots:
+
+Multi-agent progress and route/source visibility:
+
+![Multi-agent progress](photos/run-multi-agent-progress.png)
+
+Final answer:
+
+![Multi-agent final answer](photos/run-multi-agent-final-anwer.png)
+
+Run metrics:
+
+![Multi-agent metrics](photos/run-muliti-agent-metrics.png)
 
 JSON mode:
 
@@ -363,6 +381,10 @@ For LangSmith:
 
 The code configures LangSmith-compatible environment variables in
 `src/multi_agent_research_lab/observability/tracing.py`.
+
+Example LangSmith screenshot:
+
+![LangSmith trace screenshot](photos/langsmith-screenshot.png)
 
 ## Guardrails And Fallbacks
 
