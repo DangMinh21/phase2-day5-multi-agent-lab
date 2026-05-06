@@ -1,0 +1,290 @@
+{
+  "request": {
+    "query": "Compare single-agent and multi-agent workflows for customer support",
+    "max_sources": 5,
+    "audience": "technical learners"
+  },
+  "iteration": 4,
+  "next_route": "done",
+  "route_history": [
+    "researcher",
+    "analyst",
+    "writer",
+    "done"
+  ],
+  "sources": [
+    {
+      "title": "Choosing Between Building a Single-Agent System or Multi-Agent ...",
+      "url": "https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ai-agents/single-agent-multiple-agents",
+      "snippet": "### Single-agent workflows\n\nSingle agents often respond directly to user requests without orchestration. Workflows provide essential structure for reliability and enterprise integration even with single agents. [...] ### Multi-agent orchestration and workflows\n\nMulti-agent systems require workflows to implement orchestration patterns documented in the Azure Architecture Center. Manual chaining of agents creates brittle connections that fail unpredictably. Workflows provide structured coordination that ensures reliable agent interaction. Here are some benefits of using workflows with multi-agent systems: [...] Human review. Insert checkpoints where people validate agent outputs before downstream execution. This human-in-the-loop pattern maintains quality while preserving automation benefits.",
+      "metadata": {
+        "provider": "tavily",
+        "score": 0.9999893
+      }
+    },
+    {
+      "title": "Single Agent vs Multi-Agent AI Teams: Which Architecture? (2026)",
+      "url": "https://www.taskade.com/blog/single-agent-systems-versus-multi-agent-ai-teams",
+      "snippet": "Taskade AI banner.\n\n## Frequently Asked Questions\n\nA single-agent system uses one AI agent to handle all aspects of a task — it plans, executes, and evaluates on its own. A multi-agent system deploys multiple specialized agents that collaborate, each handling a specific part of the workflow. Analogy: a single agent is like a solo freelancer doing everything; a multi-agent team is like a department with specialized roles (researcher, analyst, writer, reviewer). Single agents are simpler to set up and work well for straightforward tasks. Multi-agent teams handle complex workflows better because specialization improves quality and parallel execution improves speed. [...] Use a single agent when: 1) The task is well-defined and sequential (e.g., summarize this document), 2) Speed matters more than depth (quick answers, simple automation), 3) You're starting out and want simplicity. Use a multi-agent team when: 1) The task involves multiple distinct skills (research + writing + review), 2) Quality matters and you want checks and balances (one agent reviews another's work), 3) The workflow has parallel steps that can execute simultaneously, 4) The task requires different knowledge bases or tools for different phases. Start with a single agent and split into a team when you see quality gaps or bottlenecks. [...] The short answer is “everywhere,” but we can be more specific.\n\nAn agentic system with multiple AI agents can help you automate business workflows, optimize supply chains, manage customer service, streamline research, create content, and much more.\n\nNow, let’s look at some real-life examples. 👇\n\n### Customer Support Systems\n\nLet’s say you’re running an online store. You’re flooded with customer inquiries — returns, shipping updates, product questions. It’s overwhelming, and you can’t keep up.\n\nInstead of swimming upstream, you can set up an AI dream team to help you out.\n\nFirst, you can create a support agent trained on descriptions and specs of your entire product lineup. This agent will help your customer reps answer questions and quickly create personalized offers.",
+      "metadata": {
+        "provider": "tavily",
+        "score": 0.99992096
+      }
+    },
+    {
+      "title": "Single-agent vs. multi-agent systems: enterprise AI tradeoffs - Dataiku",
+      "url": "https://www.dataiku.com/stories/blog/single-agent-vs-multi-agent-systems",
+      "snippet": "### Single-agent system vs. multi-agent system\n\nA single-agent system relies on one LLM to handle both planning and execution. It receives a prompt, reasons through the steps, and produces an output, like a customer service chatbot answering questions within a defined scope.\n\nA multi-agent system works differently. Instead of one model doing everything, multiple autonomous agents take on specialized roles and coordinate to solve a problem collectively. In a fraud detection workflow, for example, one agent might analyze transactions, another reviews customer history, an aggregator synthesizes the findings, and a validator checks the results.",
+      "metadata": {
+        "provider": "tavily",
+        "score": 0.99989367
+      }
+    },
+    {
+      "title": "Single-agent vs. multi-agent systems in comparison",
+      "url": "https://blog.doubleslash.de/en/software-technologien/kuenstliche-intelligenz/more-ki-agents-do-not-always-mean-better-results-the-fallacy-in-detail",
+      "snippet": "Why? Imagine Agent A analyzes a problem, passes the result on to Agent B, who uses it to propose a solution. However, context is lost with every handover. Agent B is unaware of the nuances that Agent A took into account during the analysis. The result: queries, corrections, repetitions. A single agent would have retained the entire context from start to finish.\n\nIn addition, there is the coordination effort: results must be transferred between agents. States must remain synchronized. The orchestrator waits until all the pieces fit together. This costs valuable time.\n\nYou can use an agent remain if: [...] Start with a well-configured single-agent system. Only scale up when you reach your actual limits and not because it looks technically impressive. Because in the end, it's not how many agents are working but whether the result is correct.\n\n## Conclusion\n\n More agents do not automatically mean better results - the opposite is often the case.\n Single-agent systems are more efficient, faster and more cost-effective in many scenarios.\n Multi-agent setups are particularly worthwhile with genuine parallelization and clear specialization.\n Complexity, susceptibility to errors and coordination effort increase with the number of agents.\n Best practice: Start with a single agent and only scale up as required.\n\n## FAQs on single-agent vs. multi-agent systems [...] ### What are the disadvantages of multi-agent systems?\n\nThe main disadvantages include higher costs, longer running times and an increased susceptibility to errors due to complex coordination processes between the agents.\n\n### What is the best way to start with AI agents?\n\nThe recommended approach is to start with a well-configured single-agent system. Only when clear limits have been reached should an expansion to a multi-agent system take place.",
+      "metadata": {
+        "provider": "tavily",
+        "score": 0.99985456
+      }
+    },
+    {
+      "title": "Single Agent vs Multi-Agent Architecture: What Works Better for ...",
+      "url": "https://www.xcubelabs.com/blog/single-agent-vs-multi-agent-architecture-what-works-better-for-banks/",
+      "snippet": "## Where Multi-Agent Architectures Become Essential\n\nIn banking, a well-designed Multi-agent system becomes essential when workflows involve multiple decision points, specialized roles, and continuous coordination across risk, compliance, and customer operations.\n\nA fraud event, for example, is not one task; it is a chain of decisions: detecting unusual behavior, interpreting policy thresholds, escalating cases, communicating with customers, and documenting actions for compliance.\n\nThis is where Single Agent vs Multi-Agent shifts strongly toward multi-agent design.\n\nIn a Multi-AI agent architecture, banks can deploy specialists such as: [...] Fraud operations, credit risk oversight, and exception-heavy servicing naturally demand multi-agent orchestration, while simpler workflows benefit from single-agent clarity.\n\nBanks should also consider governance. Multi-agent environments require stronger orchestration layers, clear permissions, and well-defined escalation paths. Single-agent setups may be easier to monitor early, but can become bottlenecks as workflows grow.\n\nSo the real Single Agent vs Multi-Agent decision comes down to this:\n\nAre you solving one contained task, or building an operating model that spans multiple systems?\n\n## Conclusion\n\nThe Single Agent vs Multi-Agent question has no universal answer.\n\nSingle AI Agent systems shine in linear, well-defined workflows where auditability matters most.",
+      "metadata": {
+        "provider": "tavily",
+        "score": 0.9997731
+      }
+    }
+  ],
+  "research_notes": "### Single-Agent Workflows\n- **Definition**: A single-agent system uses one AI agent to manage all aspects of a task, including planning, execution, and evaluation. \n- **Characteristics**: \n  - Simpler to set up and manage.\n  - Best suited for straightforward, well-defined tasks (e.g., answering FAQs).\n  - Operates without the need for orchestration, directly responding to user requests.\n- **Use Cases**: Ideal for tasks where speed is prioritized over depth, such as quick answers or simple automation. \n- **Efficiency**: Generally more efficient, faster, and cost-effective for linear workflows (Source [1], [2], [3], [4]).\n\n### Multi-Agent Workflows\n- **Definition**: A multi-agent system consists of multiple specialized agents that collaborate, each handling specific parts of a workflow.\n- **Characteristics**: \n  - Requires orchestration to manage interactions between agents, which can introduce complexity.\n  - Better suited for complex tasks that involve multiple distinct skills and require parallel execution.\n  - Each agent can focus on a specific role (e.g., analysis, review), improving quality and speed.\n- **Benefits**: \n  - Allows for human-in-the-loop checkpoints, enhancing quality control.\n  - Facilitates handling of complex workflows with multiple decision points (e.g., fraud detection in banking).\n- **Challenges**: \n  - Increased coordination effort, potential for errors due to context loss between agents, and longer running times (Source [1], [2], [3], [4], [5]).\n\n### Comparison\n- **Task Complexity**: Single-agent systems excel in simple, linear tasks, while multi-agent systems are necessary for complex workflows requiring specialization and collaboration.\n- **Quality vs. Speed**: Single agents provide quick responses but may lack depth; multi-agent systems improve quality through checks and balances but may slow down due to coordination needs.\n- **Scalability**: It is recommended to start with a single-agent system and transition to a multi-agent system only when necessary, as scaling up can introduce additional costs and complexity (Source [1], [2], [3], [4], [5]).",
+  "analysis_notes": "### Key Claims\n1. **Single-Agent Workflows**:\n   - Simpler to set up and manage.\n   - Best for straightforward tasks like FAQs.\n   - More efficient and cost-effective for linear workflows.\n\n2. **Multi-Agent Workflows**:\n   - Consist of multiple specialized agents requiring orchestration.\n   - Better for complex tasks needing collaboration and specialization.\n   - Allows for human-in-the-loop checkpoints for quality control.\n\n### Supporting Evidence\n- **Single-Agent Workflows**:\n  - Efficiency and speed in handling linear tasks (Sources [1], [2], [3], [4]).\n  \n- **Multi-Agent Workflows**:\n  - Enhanced quality through specialized roles and collaboration (Sources [1], [2], [3], [4], [5]).\n  - Capability to manage complex workflows with multiple decision points (Source [5]).\n\n### Tradeoffs\n- **Single-Agent**:\n  - **Pros**: Faster response times, lower complexity, cost-effective for simple tasks.\n  - **Cons**: Limited depth and quality in responses; not suitable for complex tasks.\n\n- **Multi-Agent**:\n  - **Pros**: Improved quality through specialization, better handling of complex tasks, and human oversight.\n  - **Cons**: Increased complexity in orchestration, potential for errors due to context loss, longer processing times.\n\n### Weak Evidence\n- The sources cited ([1], [2], [3], [4], [5]) do not specify the contexts or metrics used to measure efficiency and effectiveness, which may limit the applicability of the findings across different customer support scenarios.\n\n### Suggested Answer Structure\n1. **Introduction**: Brief overview of single-agent vs. multi-agent workflows.\n2. **Single-Agent Workflows**:\n   - Definition and characteristics.\n   - Use cases and efficiency.\n3. **Multi-Agent Workflows**:\n   - Definition and characteristics.\n   - Benefits and challenges.\n4. **Comparison**:\n   - Task complexity.\n   - Quality vs. speed.\n   - Scalability considerations.\n5. **Conclusion**: Summary of insights and recommendations for implementation based on task complexity and organizational needs.",
+  "final_answer": "### Comparison of Single-Agent and Multi-Agent Workflows for Customer Support\n\nIn the realm of customer support, workflows can be categorized into single-agent and multi-agent systems, each with distinct characteristics, advantages, and challenges.\n\n#### Single-Agent Workflows\n**Definition and Characteristics**: A single-agent system utilizes one AI agent to handle all aspects of a task, including planning, execution, and evaluation. This approach is simpler to set up and manage, making it ideal for straightforward, well-defined tasks, such as answering frequently asked questions (FAQs).\n\n**Use Cases and Efficiency**: Single-agent workflows are particularly effective for tasks where speed is prioritized over depth. They are generally more efficient, faster, and cost-effective for linear workflows, allowing for quick responses to user inquiries without the need for orchestration [1][2][3][4].\n\n#### Multi-Agent Workflows\n**Definition and Characteristics**: In contrast, multi-agent systems consist of multiple specialized agents that collaborate, each responsible for specific parts of a workflow. This setup requires orchestration to manage interactions between agents, which can introduce complexity.\n\n**Benefits and Challenges**: Multi-agent workflows are better suited for complex tasks that involve multiple distinct skills and require parallel execution. They allow for human-in-the-loop checkpoints, enhancing quality control. However, they also come with challenges such as increased coordination efforts, potential for errors due to context loss between agents, and longer processing times [1][2][3][4][5].\n\n#### Comparison\n- **Task Complexity**: Single-agent systems excel in simple, linear tasks, while multi-agent systems are necessary for complex workflows that require specialization and collaboration.\n- **Quality vs. Speed**: Single agents provide quick responses but may lack depth; multi-agent systems improve quality through checks and balances but may slow down due to coordination needs.\n- **Scalability**: It is advisable to start with a single-agent system and transition to a multi-agent system only when necessary, as scaling up can introduce additional costs and complexity [1][2][3][4][5].\n\n### Conclusion\nIn summary, single-agent workflows are best for straightforward tasks requiring speed and efficiency, while multi-agent workflows are suited for complex tasks that benefit from specialization and collaboration. Organizations should assess their specific needs and task complexity when deciding which system to implement.\n\n### Limitations\nThe sources referenced do not specify the contexts or metrics used to measure efficiency and effectiveness, which may limit the applicability of the findings across different customer support scenarios. Additionally, the evolving nature of AI technologies may influence the relevance of these comparisons over time.",
+  "agent_results": [
+    {
+      "agent": "supervisor",
+      "content": "Next route: researcher",
+      "metadata": {
+        "next_route": "researcher",
+        "iteration": 1
+      },
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": null,
+      "success": true
+    },
+    {
+      "agent": "researcher",
+      "content": "### Single-Agent Workflows\n- **Definition**: A single-agent system uses one AI agent to manage all aspects of a task, including planning, execution, and evaluation. \n- **Characteristics**: \n  - Simpler to set up and manage.\n  - Best suited for straightforward, well-defined tasks (e.g., answering FAQs).\n  - Operates without the need for orchestration, directly responding to user requests.\n- **Use Cases**: Ideal for tasks where speed is prioritized over depth, such as quick answers or simple automation. \n- **Efficiency**: Generally more efficient, faster, and cost-effective for linear workflows (Source [1], [2], [3], [4]).\n\n### Multi-Agent Workflows\n- **Definition**: A multi-agent system consists of multiple specialized agents that collaborate, each handling specific parts of a workflow.\n- **Characteristics**: \n  - Requires orchestration to manage interactions between agents, which can introduce complexity.\n  - Better suited for complex tasks that involve multiple distinct skills and require parallel execution.\n  - Each agent can focus on a specific role (e.g., analysis, review), improving quality and speed.\n- **Benefits**: \n  - Allows for human-in-the-loop checkpoints, enhancing quality control.\n  - Facilitates handling of complex workflows with multiple decision points (e.g., fraud detection in banking).\n- **Challenges**: \n  - Increased coordination effort, potential for errors due to context loss between agents, and longer running times (Source [1], [2], [3], [4], [5]).\n\n### Comparison\n- **Task Complexity**: Single-agent systems excel in simple, linear tasks, while multi-agent systems are necessary for complex workflows requiring specialization and collaboration.\n- **Quality vs. Speed**: Single agents provide quick responses but may lack depth; multi-agent systems improve quality through checks and balances but may slow down due to coordination needs.\n- **Scalability**: It is recommended to start with a single-agent system and transition to a multi-agent system only when necessary, as scaling up can introduce additional costs and complexity (Source [1], [2], [3], [4], [5]).",
+      "metadata": {
+        "source_count": 5,
+        "search_provider": "tavily",
+        "llm_provider": "openai",
+        "fallback_reason": null
+      },
+      "usage": {
+        "input_tokens": 1522,
+        "output_tokens": 444,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": 15.471770334001121,
+      "success": true
+    },
+    {
+      "agent": "supervisor",
+      "content": "Next route: analyst",
+      "metadata": {
+        "next_route": "analyst",
+        "iteration": 2
+      },
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": null,
+      "success": true
+    },
+    {
+      "agent": "analyst",
+      "content": "### Key Claims\n1. **Single-Agent Workflows**:\n   - Simpler to set up and manage.\n   - Best for straightforward tasks like FAQs.\n   - More efficient and cost-effective for linear workflows.\n\n2. **Multi-Agent Workflows**:\n   - Consist of multiple specialized agents requiring orchestration.\n   - Better for complex tasks needing collaboration and specialization.\n   - Allows for human-in-the-loop checkpoints for quality control.\n\n### Supporting Evidence\n- **Single-Agent Workflows**:\n  - Efficiency and speed in handling linear tasks (Sources [1], [2], [3], [4]).\n  \n- **Multi-Agent Workflows**:\n  - Enhanced quality through specialized roles and collaboration (Sources [1], [2], [3], [4], [5]).\n  - Capability to manage complex workflows with multiple decision points (Source [5]).\n\n### Tradeoffs\n- **Single-Agent**:\n  - **Pros**: Faster response times, lower complexity, cost-effective for simple tasks.\n  - **Cons**: Limited depth and quality in responses; not suitable for complex tasks.\n\n- **Multi-Agent**:\n  - **Pros**: Improved quality through specialization, better handling of complex tasks, and human oversight.\n  - **Cons**: Increased complexity in orchestration, potential for errors due to context loss, longer processing times.\n\n### Weak Evidence\n- The sources cited ([1], [2], [3], [4], [5]) do not specify the contexts or metrics used to measure efficiency and effectiveness, which may limit the applicability of the findings across different customer support scenarios.\n\n### Suggested Answer Structure\n1. **Introduction**: Brief overview of single-agent vs. multi-agent workflows.\n2. **Single-Agent Workflows**:\n   - Definition and characteristics.\n   - Use cases and efficiency.\n3. **Multi-Agent Workflows**:\n   - Definition and characteristics.\n   - Benefits and challenges.\n4. **Comparison**:\n   - Task complexity.\n   - Quality vs. speed.\n   - Scalability considerations.\n5. **Conclusion**: Summary of insights and recommendations for implementation based on task complexity and organizational needs.",
+      "metadata": {
+        "llm_provider": "openai",
+        "fallback_reason": null
+      },
+      "usage": {
+        "input_tokens": 517,
+        "output_tokens": 435,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": 12.781339625000328,
+      "success": true
+    },
+    {
+      "agent": "supervisor",
+      "content": "Next route: writer",
+      "metadata": {
+        "next_route": "writer",
+        "iteration": 3
+      },
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": null,
+      "success": true
+    },
+    {
+      "agent": "writer",
+      "content": "### Comparison of Single-Agent and Multi-Agent Workflows for Customer Support\n\nIn the realm of customer support, workflows can be categorized into single-agent and multi-agent systems, each with distinct characteristics, advantages, and challenges.\n\n#### Single-Agent Workflows\n**Definition and Characteristics**: A single-agent system utilizes one AI agent to handle all aspects of a task, including planning, execution, and evaluation. This approach is simpler to set up and manage, making it ideal for straightforward, well-defined tasks, such as answering frequently asked questions (FAQs).\n\n**Use Cases and Efficiency**: Single-agent workflows are particularly effective for tasks where speed is prioritized over depth. They are generally more efficient, faster, and cost-effective for linear workflows, allowing for quick responses to user inquiries without the need for orchestration [1][2][3][4].\n\n#### Multi-Agent Workflows\n**Definition and Characteristics**: In contrast, multi-agent systems consist of multiple specialized agents that collaborate, each responsible for specific parts of a workflow. This setup requires orchestration to manage interactions between agents, which can introduce complexity.\n\n**Benefits and Challenges**: Multi-agent workflows are better suited for complex tasks that involve multiple distinct skills and require parallel execution. They allow for human-in-the-loop checkpoints, enhancing quality control. However, they also come with challenges such as increased coordination efforts, potential for errors due to context loss between agents, and longer processing times [1][2][3][4][5].\n\n#### Comparison\n- **Task Complexity**: Single-agent systems excel in simple, linear tasks, while multi-agent systems are necessary for complex workflows that require specialization and collaboration.\n- **Quality vs. Speed**: Single agents provide quick responses but may lack depth; multi-agent systems improve quality through checks and balances but may slow down due to coordination needs.\n- **Scalability**: It is advisable to start with a single-agent system and transition to a multi-agent system only when necessary, as scaling up can introduce additional costs and complexity [1][2][3][4][5].\n\n### Conclusion\nIn summary, single-agent workflows are best for straightforward tasks requiring speed and efficiency, while multi-agent workflows are suited for complex tasks that benefit from specialization and collaboration. Organizations should assess their specific needs and task complexity when deciding which system to implement.\n\n### Limitations\nThe sources referenced do not specify the contexts or metrics used to measure efficiency and effectiveness, which may limit the applicability of the findings across different customer support scenarios. Additionally, the evolving nature of AI technologies may influence the relevance of these comparisons over time.",
+      "metadata": {
+        "llm_provider": "openai",
+        "fallback_reason": null
+      },
+      "usage": {
+        "input_tokens": 1178,
+        "output_tokens": 516,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": 8.984897125001226,
+      "success": true
+    },
+    {
+      "agent": "supervisor",
+      "content": "Next route: done",
+      "metadata": {
+        "next_route": "done",
+        "iteration": 4
+      },
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": null,
+      "success": true
+    }
+  ],
+  "trace": [
+    {
+      "name": "workflow_started",
+      "payload": {
+        "engine": "langgraph"
+      },
+      "timestamp": "2026-05-06T05:09:19.744975+00:00"
+    },
+    {
+      "name": "route_decision",
+      "payload": {
+        "agent": "supervisor",
+        "next_route": "researcher",
+        "iteration": 1,
+        "has_sources": false,
+        "has_research_notes": false,
+        "has_analysis_notes": false,
+        "has_final_answer": false
+      },
+      "timestamp": "2026-05-06T05:09:23.374938+00:00"
+    },
+    {
+      "name": "agent_completed",
+      "payload": {
+        "agent": "researcher",
+        "source_count": 5,
+        "search_provider": "tavily",
+        "llm_provider": "openai",
+        "fallback_reason": null,
+        "latency_seconds": 15.471719334000227
+      },
+      "timestamp": "2026-05-06T05:09:38.847437+00:00"
+    },
+    {
+      "name": "route_decision",
+      "payload": {
+        "agent": "supervisor",
+        "next_route": "analyst",
+        "iteration": 2,
+        "has_sources": true,
+        "has_research_notes": true,
+        "has_analysis_notes": false,
+        "has_final_answer": false
+      },
+      "timestamp": "2026-05-06T05:09:38.849955+00:00"
+    },
+    {
+      "name": "agent_completed",
+      "payload": {
+        "agent": "analyst",
+        "llm_provider": "openai",
+        "fallback_reason": null,
+        "latency_seconds": 12.78127504099939
+      },
+      "timestamp": "2026-05-06T05:09:51.633099+00:00"
+    },
+    {
+      "name": "route_decision",
+      "payload": {
+        "agent": "supervisor",
+        "next_route": "writer",
+        "iteration": 3,
+        "has_sources": true,
+        "has_research_notes": true,
+        "has_analysis_notes": true,
+        "has_final_answer": false
+      },
+      "timestamp": "2026-05-06T05:09:51.635859+00:00"
+    },
+    {
+      "name": "agent_completed",
+      "payload": {
+        "agent": "writer",
+        "llm_provider": "openai",
+        "fallback_reason": null,
+        "latency_seconds": 8.98481908300164
+      },
+      "timestamp": "2026-05-06T05:10:00.623085+00:00"
+    },
+    {
+      "name": "route_decision",
+      "payload": {
+        "agent": "supervisor",
+        "next_route": "done",
+        "iteration": 4,
+        "has_sources": true,
+        "has_research_notes": true,
+        "has_analysis_notes": true,
+        "has_final_answer": true
+      },
+      "timestamp": "2026-05-06T05:10:00.626461+00:00"
+    },
+    {
+      "name": "workflow_completed",
+      "payload": {
+        "engine": "langgraph",
+        "iterations": 4,
+        "route_history": [
+          "researcher",
+          "analyst",
+          "writer",
+          "done"
+        ],
+        "error_count": 0
+      },
+      "timestamp": "2026-05-06T05:10:00.629426+00:00"
+    }
+  ],
+  "errors": [],
+  "metrics": {
+    "source_count": 5,
+    "engine": "langgraph",
+    "duration_seconds": 40.884609
+  },
+  "started_at": "2026-05-06T05:09:19.744794Z",
+  "completed_at": "2026-05-06T05:10:00.629403Z"
+}

@@ -1,0 +1,290 @@
+{
+  "request": {
+    "query": "Research GraphRAG state-of-the-art and write a 500-word summary",
+    "max_sources": 5,
+    "audience": "technical learners"
+  },
+  "iteration": 4,
+  "next_route": "done",
+  "route_history": [
+    "researcher",
+    "analyst",
+    "writer",
+    "done"
+  ],
+  "sources": [
+    {
+      "title": "Microsoft GraphRAG: Transforming Unstructured Text into ... - Medium",
+      "url": "https://medium.com/@tuhinsharma121/knowledge-graph-enhanced-rag-transforming-unstructured-text-into-explainable-queryable-89fb53e1ce14",
+      "snippet": "Once the knowledge graph is established, GraphRAG applies Leiden community detection, a state-of-the-art algorithm for graph partitioning:.",
+      "metadata": {
+        "provider": "tavily",
+        "score": 0.40910333
+      }
+    },
+    {
+      "title": "What is GraphRAG? Complete Guide to Graph-Based RAG ...",
+      "url": "https://www.articsledge.com/post/graphrag-retrieval-augmented-generation",
+      "snippet": "*   **GraphRAG**merges knowledge graphs with RAG to enable AI systems to [**reason**](https://www.articsledge.com/post/ai-reasoning)across complex, interconnected data. *   **Works by**: Extracting entities and relationships, building hierarchical communities using [**Leiden algorithm**](https://www.articsledge.com/post/leiden-algorithm), [**generating**](https://www.articsledge.com/post/generative-ai-genai)summaries, then retrieving context based on graph structure. *   **Cost factor**: Indexing is 100-1000x more [**expensive**](https://www.articsledge.com/post/ai-expense-management)than vector RAG but query efficiency compensates; LazyGraphRAG reduces indexing cost to 0.1% of full GraphRAG (Microsoft Research, 2025-06-06). GraphRAG is a retrieval-augmented [**generation**](https://www.articsledge.com/post/generative-ai-genai)technique that uses knowledge graphs to organize and retrieve information for [**large language models**](https://www.articsledge.com/post/large-language-models-llms). Unlike traditional RAG which relies on vector similarity, GraphRAG extracts entities and relationships from documents, groups them into hierarchical communities, and generates summaries that enable AI to answer complex, multi-hop questions requiring understanding of how concepts connect across an entire [**dataset**](https://www.articsledge.com/post/dataset). GraphRAG (Graph Retrieval-Augmented Generation) is an advanced RAG technique that builds a knowledge graph from unstructured text, then uses that graph's structure to retrieve more relevant context for [**language model**](https://www.articsledge.com/post/language-model) queries.",
+      "metadata": {
+        "provider": "tavily",
+        "score": 0.3953682
+      }
+    },
+    {
+      "title": "Welcome - GraphRAG",
+      "url": "https://microsoft.github.io/graphrag/",
+      "snippet": "👉 [Microsoft Research Blog Post](https://www.microsoft.com/en-us/research/blog/graphrag-unlocking-llm-discovery-on-narrative-private-data/). GraphRAG is a structured, hierarchical approach to Retrieval Augmented Generation (RAG), as opposed to naive semantic-search. The GraphRAG process involves extracting a knowledge graph out of raw text, building a community hierarchy, generating summaries for these communities, and then leveraging these structures when perform RAG-based tasks. To learn more about GraphRAG and how it can be used to enhance your language model's ability to reason about your private data, please visit the [Microsoft Research Blog Post](https://www.microsoft.com/en-us/research/blog/graphrag-unlocking-llm-discovery-on-narrative-private-data/). ## GraphRAG vs Baseline RAG 🔍. GraphRAG uses knowledge graphs to provide substantial improvements in question-and-answer performance when reasoning about complex information. Microsoft Research’s new approach, GraphRAG, creates a knowledge graph based on an input corpus. This graph, along with community summaries and graph machine learning outputs, are used to augment prompts at query time. GraphRAG builds upon our prior [research](https://www.microsoft.com/en-us/worklab/patterns-hidden-inside-the-org-chart) and [tooling](https://github.com/graspologic-org/graspologic) using graph machine learning. Please see the [breaking changes](https://github.com/microsoft/graphrag/blob/main/breaking-changes.md) document for notes on our approach to versioning the project.",
+      "metadata": {
+        "provider": "tavily",
+        "score": 0.3708637
+      }
+    },
+    {
+      "title": "Microsoft GraphRAG Technology Summary - LinkedIn",
+      "url": "https://www.linkedin.com/pulse/microsoft-graphrag-technology-summary-chening-yang-20iqc",
+      "snippet": "Recently, while building our own RAG product, we've drawn some inspiration from Microsoft's GraphRAG series of articles and GitHub examples.",
+      "metadata": {
+        "provider": "tavily",
+        "score": 0.35240287
+      }
+    },
+    {
+      "title": "A GraphRAG Approach to Query-Focused Summarization - arXiv",
+      "url": "https://arxiv.org/html/2404.16130v2",
+      "snippet": "We propose GraphRAG, a graph-based approach to question answering over private text corpora that scales with both the generality of user questions and the",
+      "metadata": {
+        "provider": "tavily",
+        "score": 0.3336557
+      }
+    }
+  ],
+  "research_notes": "- **Definition and Purpose**: GraphRAG (Graph Retrieval-Augmented Generation) is an advanced technique that integrates knowledge graphs with retrieval-augmented generation (RAG) to enhance AI systems' reasoning capabilities across complex datasets. It aims to improve the performance of large language models (LLMs) in answering multi-hop questions by organizing and retrieving information more effectively than traditional RAG methods, which rely on vector similarity. [2][3]\n\n- **Process Overview**:\n  - **Knowledge Graph Construction**: GraphRAG begins by extracting entities and relationships from unstructured text to build a knowledge graph. This graph serves as a structured representation of the information contained within the text. [2][3]\n  - **Community Detection**: The Leiden community detection algorithm is employed to partition the graph into hierarchical communities, facilitating better organization of related concepts. [1][2]\n  - **Summarization**: After constructing the graph and identifying communities, GraphRAG generates summaries for these communities, which are crucial for enhancing the context available for queries. [2][3]\n\n- **Query Efficiency**: While indexing in GraphRAG can be significantly more expensive (100-1000x) than traditional vector-based RAG methods, the efficiency of querying compensates for this cost. A variant known as LazyGraphRAG can reduce indexing costs to as low as 0.1% of full GraphRAG, making it more feasible for practical applications. [2]\n\n- **Comparison with Traditional RAG**: Unlike baseline RAG approaches that primarily focus on semantic search, GraphRAG leverages the structured nature of knowledge graphs to provide substantial improvements in question-and-answer performance, particularly for complex queries that require understanding the interconnections between various concepts. [3][4]\n\n- **Applications**: GraphRAG is particularly useful for question answering over private text corpora, allowing for scalable responses to a wide range of user inquiries. It is designed to enhance the reasoning capabilities of LLMs when dealing with intricate datasets. [5]\n\n- **Research and Development**: The development of GraphRAG is backed by Microsoft Research, which has published various articles and resources detailing its implementation and potential applications. The approach builds on previous research in graph machine learning and aims to unlock new possibilities for LLMs in processing narrative and private data. [3][4]\n\n- **Future Directions**: Ongoing research is expected to refine the GraphRAG methodology, exploring its integration with other AI technologies and its application in diverse fields requiring advanced data reasoning capabilities. [4][5]",
+  "analysis_notes": "**Key Claims:**\n1. GraphRAG enhances AI systems' reasoning capabilities by integrating knowledge graphs with retrieval-augmented generation (RAG).\n2. It improves performance in answering multi-hop questions compared to traditional RAG methods.\n3. The construction of knowledge graphs and community detection enhances the organization of information.\n4. Query efficiency is improved despite higher initial indexing costs, especially with the LazyGraphRAG variant.\n5. GraphRAG is particularly effective for question answering over private text corpora.\n\n**Supporting Evidence:**\n- GraphRAG constructs knowledge graphs from unstructured text, which serves as a structured representation of information (Notes [2][3]).\n- The use of the Leiden community detection algorithm aids in organizing related concepts within the graph (Notes [1][2]).\n- Summarization of communities enhances context for queries, improving response quality (Notes [2][3]).\n- Comparative analysis indicates that GraphRAG outperforms traditional RAG in handling complex queries that require understanding interconnections (Notes [3][4]).\n- Microsoft Research's backing provides credibility and ongoing development insights (Notes [3][4]).\n\n**Tradeoffs:**\n- Indexing costs for GraphRAG can be significantly higher (100-1000x) than traditional vector-based RAG methods, which may limit initial adoption (Notes [2]).\n- However, the efficiency of querying in GraphRAG compensates for these costs, particularly with the LazyGraphRAG variant reducing costs to 0.1% of full GraphRAG (Notes [2]).\n- The complexity of implementing knowledge graphs and community detection may require additional resources and expertise compared to simpler RAG methods.\n\n**Weak Evidence:**\n- While the potential applications and future directions are mentioned, specific case studies or empirical data demonstrating GraphRAG's effectiveness in real-world scenarios are not provided (Notes [4][5]).\n- The claims regarding improvements in reasoning capabilities and performance metrics lack quantitative benchmarks or comparative studies against baseline RAG methods.\n\n**Suggested Answer Structure:**\n1. Introduction to GraphRAG: Definition and purpose.\n2. Overview of the GraphRAG process: Knowledge graph construction, community detection, and summarization.\n3. Discussion of query efficiency and tradeoffs with indexing costs.\n4. Comparison with traditional RAG methods: Highlighting performance improvements.\n5. Applications and practical implications of GraphRAG.\n6. Research and development background, including Microsoft Research's involvement.\n7. Future directions for GraphRAG and potential areas for further research.",
+  "final_answer": "**GraphRAG: Enhancing AI Reasoning through Knowledge Graphs and Retrieval-Augmented Generation**\n\nGraphRAG (Graph Retrieval-Augmented Generation) is a cutting-edge technique that merges knowledge graphs with retrieval-augmented generation (RAG) to significantly enhance the reasoning capabilities of AI systems, particularly large language models (LLMs). This innovative approach is designed to improve the performance of AI in answering complex, multi-hop questions by organizing and retrieving information more effectively than traditional RAG methods, which primarily rely on vector similarity [2][3].\n\n**Process Overview**\n\nThe GraphRAG methodology begins with the construction of knowledge graphs from unstructured text. This involves extracting entities and relationships to create a structured representation of the information contained within the text [2][3]. Following this, the Leiden community detection algorithm is employed to partition the graph into hierarchical communities, which helps in organizing related concepts more effectively [1][2]. After constructing the graph and identifying these communities, GraphRAG generates summaries for each community, enhancing the context available for user queries [2][3].\n\n**Query Efficiency and Trade-offs**\n\nOne notable aspect of GraphRAG is its query efficiency, which, despite the significantly higher indexing costs—ranging from 100 to 1000 times more than traditional vector-based RAG methods—offers substantial benefits in query performance. A variant known as LazyGraphRAG can mitigate these costs, reducing indexing expenses to as low as 0.1% of full GraphRAG, making it more practical for real-world applications [2]. This trade-off between initial indexing costs and long-term query efficiency is a crucial consideration for organizations looking to implement GraphRAG.\n\n**Comparison with Traditional RAG**\n\nGraphRAG stands out from traditional RAG approaches by leveraging the structured nature of knowledge graphs. While baseline RAG methods focus mainly on semantic search, GraphRAG provides significant improvements in question-and-answer performance, especially for complex queries that necessitate an understanding of interconnections between various concepts [3][4]. This capability makes GraphRAG particularly effective for applications requiring nuanced reasoning over intricate datasets.\n\n**Applications and Practical Implications**\n\nGraphRAG is particularly beneficial for question answering over private text corpora, enabling scalable and accurate responses to a wide range of user inquiries. Its design enhances the reasoning capabilities of LLMs, making it suitable for various fields that require advanced data processing and reasoning [5]. The backing of Microsoft Research lends credibility to GraphRAG, with ongoing research aimed at refining its methodology and exploring its integration with other AI technologies [3][4].\n\n**Future Directions**\n\nLooking ahead, research into GraphRAG is expected to continue evolving, with potential applications expanding into diverse fields that demand sophisticated reasoning capabilities. The exploration of its integration with other AI technologies could unlock new possibilities for processing narrative and private data [4][5].\n\n**Limitations**\n\nWhile GraphRAG shows promise, there are limitations to consider. The initial indexing costs may deter some organizations from adopting the technology, despite the long-term efficiency gains. Additionally, while the theoretical benefits are well-documented, empirical data demonstrating GraphRAG's effectiveness in real-world scenarios is still limited. Future research should focus on providing quantitative benchmarks and case studies to validate its performance against traditional RAG methods.\n\nIn summary, GraphRAG represents a significant advancement in AI reasoning capabilities, combining the strengths of knowledge graphs with retrieval-augmented generation to tackle complex queries effectively.",
+  "agent_results": [
+    {
+      "agent": "supervisor",
+      "content": "Next route: researcher",
+      "metadata": {
+        "next_route": "researcher",
+        "iteration": 1
+      },
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": null,
+      "success": true
+    },
+    {
+      "agent": "researcher",
+      "content": "- **Definition and Purpose**: GraphRAG (Graph Retrieval-Augmented Generation) is an advanced technique that integrates knowledge graphs with retrieval-augmented generation (RAG) to enhance AI systems' reasoning capabilities across complex datasets. It aims to improve the performance of large language models (LLMs) in answering multi-hop questions by organizing and retrieving information more effectively than traditional RAG methods, which rely on vector similarity. [2][3]\n\n- **Process Overview**:\n  - **Knowledge Graph Construction**: GraphRAG begins by extracting entities and relationships from unstructured text to build a knowledge graph. This graph serves as a structured representation of the information contained within the text. [2][3]\n  - **Community Detection**: The Leiden community detection algorithm is employed to partition the graph into hierarchical communities, facilitating better organization of related concepts. [1][2]\n  - **Summarization**: After constructing the graph and identifying communities, GraphRAG generates summaries for these communities, which are crucial for enhancing the context available for queries. [2][3]\n\n- **Query Efficiency**: While indexing in GraphRAG can be significantly more expensive (100-1000x) than traditional vector-based RAG methods, the efficiency of querying compensates for this cost. A variant known as LazyGraphRAG can reduce indexing costs to as low as 0.1% of full GraphRAG, making it more feasible for practical applications. [2]\n\n- **Comparison with Traditional RAG**: Unlike baseline RAG approaches that primarily focus on semantic search, GraphRAG leverages the structured nature of knowledge graphs to provide substantial improvements in question-and-answer performance, particularly for complex queries that require understanding the interconnections between various concepts. [3][4]\n\n- **Applications**: GraphRAG is particularly useful for question answering over private text corpora, allowing for scalable responses to a wide range of user inquiries. It is designed to enhance the reasoning capabilities of LLMs when dealing with intricate datasets. [5]\n\n- **Research and Development**: The development of GraphRAG is backed by Microsoft Research, which has published various articles and resources detailing its implementation and potential applications. The approach builds on previous research in graph machine learning and aims to unlock new possibilities for LLMs in processing narrative and private data. [3][4]\n\n- **Future Directions**: Ongoing research is expected to refine the GraphRAG methodology, exploring its integration with other AI technologies and its application in diverse fields requiring advanced data reasoning capabilities. [4][5]",
+      "metadata": {
+        "source_count": 5,
+        "search_provider": "tavily",
+        "llm_provider": "openai",
+        "fallback_reason": null
+      },
+      "usage": {
+        "input_tokens": 1046,
+        "output_tokens": 519,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": 8.497645041999931,
+      "success": true
+    },
+    {
+      "agent": "supervisor",
+      "content": "Next route: analyst",
+      "metadata": {
+        "next_route": "analyst",
+        "iteration": 2
+      },
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": null,
+      "success": true
+    },
+    {
+      "agent": "analyst",
+      "content": "**Key Claims:**\n1. GraphRAG enhances AI systems' reasoning capabilities by integrating knowledge graphs with retrieval-augmented generation (RAG).\n2. It improves performance in answering multi-hop questions compared to traditional RAG methods.\n3. The construction of knowledge graphs and community detection enhances the organization of information.\n4. Query efficiency is improved despite higher initial indexing costs, especially with the LazyGraphRAG variant.\n5. GraphRAG is particularly effective for question answering over private text corpora.\n\n**Supporting Evidence:**\n- GraphRAG constructs knowledge graphs from unstructured text, which serves as a structured representation of information (Notes [2][3]).\n- The use of the Leiden community detection algorithm aids in organizing related concepts within the graph (Notes [1][2]).\n- Summarization of communities enhances context for queries, improving response quality (Notes [2][3]).\n- Comparative analysis indicates that GraphRAG outperforms traditional RAG in handling complex queries that require understanding interconnections (Notes [3][4]).\n- Microsoft Research's backing provides credibility and ongoing development insights (Notes [3][4]).\n\n**Tradeoffs:**\n- Indexing costs for GraphRAG can be significantly higher (100-1000x) than traditional vector-based RAG methods, which may limit initial adoption (Notes [2]).\n- However, the efficiency of querying in GraphRAG compensates for these costs, particularly with the LazyGraphRAG variant reducing costs to 0.1% of full GraphRAG (Notes [2]).\n- The complexity of implementing knowledge graphs and community detection may require additional resources and expertise compared to simpler RAG methods.\n\n**Weak Evidence:**\n- While the potential applications and future directions are mentioned, specific case studies or empirical data demonstrating GraphRAG's effectiveness in real-world scenarios are not provided (Notes [4][5]).\n- The claims regarding improvements in reasoning capabilities and performance metrics lack quantitative benchmarks or comparative studies against baseline RAG methods.\n\n**Suggested Answer Structure:**\n1. Introduction to GraphRAG: Definition and purpose.\n2. Overview of the GraphRAG process: Knowledge graph construction, community detection, and summarization.\n3. Discussion of query efficiency and tradeoffs with indexing costs.\n4. Comparison with traditional RAG methods: Highlighting performance improvements.\n5. Applications and practical implications of GraphRAG.\n6. Research and development background, including Microsoft Research's involvement.\n7. Future directions for GraphRAG and potential areas for further research.",
+      "metadata": {
+        "llm_provider": "openai",
+        "fallback_reason": null
+      },
+      "usage": {
+        "input_tokens": 596,
+        "output_tokens": 505,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": 6.35594941599993,
+      "success": true
+    },
+    {
+      "agent": "supervisor",
+      "content": "Next route: writer",
+      "metadata": {
+        "next_route": "writer",
+        "iteration": 3
+      },
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": null,
+      "success": true
+    },
+    {
+      "agent": "writer",
+      "content": "**GraphRAG: Enhancing AI Reasoning through Knowledge Graphs and Retrieval-Augmented Generation**\n\nGraphRAG (Graph Retrieval-Augmented Generation) is a cutting-edge technique that merges knowledge graphs with retrieval-augmented generation (RAG) to significantly enhance the reasoning capabilities of AI systems, particularly large language models (LLMs). This innovative approach is designed to improve the performance of AI in answering complex, multi-hop questions by organizing and retrieving information more effectively than traditional RAG methods, which primarily rely on vector similarity [2][3].\n\n**Process Overview**\n\nThe GraphRAG methodology begins with the construction of knowledge graphs from unstructured text. This involves extracting entities and relationships to create a structured representation of the information contained within the text [2][3]. Following this, the Leiden community detection algorithm is employed to partition the graph into hierarchical communities, which helps in organizing related concepts more effectively [1][2]. After constructing the graph and identifying these communities, GraphRAG generates summaries for each community, enhancing the context available for user queries [2][3].\n\n**Query Efficiency and Trade-offs**\n\nOne notable aspect of GraphRAG is its query efficiency, which, despite the significantly higher indexing costs—ranging from 100 to 1000 times more than traditional vector-based RAG methods—offers substantial benefits in query performance. A variant known as LazyGraphRAG can mitigate these costs, reducing indexing expenses to as low as 0.1% of full GraphRAG, making it more practical for real-world applications [2]. This trade-off between initial indexing costs and long-term query efficiency is a crucial consideration for organizations looking to implement GraphRAG.\n\n**Comparison with Traditional RAG**\n\nGraphRAG stands out from traditional RAG approaches by leveraging the structured nature of knowledge graphs. While baseline RAG methods focus mainly on semantic search, GraphRAG provides significant improvements in question-and-answer performance, especially for complex queries that necessitate an understanding of interconnections between various concepts [3][4]. This capability makes GraphRAG particularly effective for applications requiring nuanced reasoning over intricate datasets.\n\n**Applications and Practical Implications**\n\nGraphRAG is particularly beneficial for question answering over private text corpora, enabling scalable and accurate responses to a wide range of user inquiries. Its design enhances the reasoning capabilities of LLMs, making it suitable for various fields that require advanced data processing and reasoning [5]. The backing of Microsoft Research lends credibility to GraphRAG, with ongoing research aimed at refining its methodology and exploring its integration with other AI technologies [3][4].\n\n**Future Directions**\n\nLooking ahead, research into GraphRAG is expected to continue evolving, with potential applications expanding into diverse fields that demand sophisticated reasoning capabilities. The exploration of its integration with other AI technologies could unlock new possibilities for processing narrative and private data [4][5].\n\n**Limitations**\n\nWhile GraphRAG shows promise, there are limitations to consider. The initial indexing costs may deter some organizations from adopting the technology, despite the long-term efficiency gains. Additionally, while the theoretical benefits are well-documented, empirical data demonstrating GraphRAG's effectiveness in real-world scenarios is still limited. Future research should focus on providing quantitative benchmarks and case studies to validate its performance against traditional RAG methods.\n\nIn summary, GraphRAG represents a significant advancement in AI reasoning capabilities, combining the strengths of knowledge graphs with retrieval-augmented generation to tackle complex queries effectively.",
+      "metadata": {
+        "llm_provider": "openai",
+        "fallback_reason": null
+      },
+      "usage": {
+        "input_tokens": 1298,
+        "output_tokens": 689,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": 12.631645082999967,
+      "success": true
+    },
+    {
+      "agent": "supervisor",
+      "content": "Next route: done",
+      "metadata": {
+        "next_route": "done",
+        "iteration": 4
+      },
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": null,
+      "success": true
+    }
+  ],
+  "trace": [
+    {
+      "name": "workflow_started",
+      "payload": {
+        "engine": "langgraph"
+      },
+      "timestamp": "2026-05-06T05:18:59.128256+00:00"
+    },
+    {
+      "name": "route_decision",
+      "payload": {
+        "agent": "supervisor",
+        "next_route": "researcher",
+        "iteration": 1,
+        "has_sources": false,
+        "has_research_notes": false,
+        "has_analysis_notes": false,
+        "has_final_answer": false
+      },
+      "timestamp": "2026-05-06T05:18:59.377603+00:00"
+    },
+    {
+      "name": "agent_completed",
+      "payload": {
+        "agent": "researcher",
+        "source_count": 5,
+        "search_provider": "tavily",
+        "llm_provider": "openai",
+        "fallback_reason": null,
+        "latency_seconds": 8.497613833000287
+      },
+      "timestamp": "2026-05-06T05:19:07.875838+00:00"
+    },
+    {
+      "name": "route_decision",
+      "payload": {
+        "agent": "supervisor",
+        "next_route": "analyst",
+        "iteration": 2,
+        "has_sources": true,
+        "has_research_notes": true,
+        "has_analysis_notes": false,
+        "has_final_answer": false
+      },
+      "timestamp": "2026-05-06T05:19:07.879003+00:00"
+    },
+    {
+      "name": "agent_completed",
+      "payload": {
+        "agent": "analyst",
+        "llm_provider": "openai",
+        "fallback_reason": null,
+        "latency_seconds": 6.355909708001491
+      },
+      "timestamp": "2026-05-06T05:19:14.236590+00:00"
+    },
+    {
+      "name": "route_decision",
+      "payload": {
+        "agent": "supervisor",
+        "next_route": "writer",
+        "iteration": 3,
+        "has_sources": true,
+        "has_research_notes": true,
+        "has_analysis_notes": true,
+        "has_final_answer": false
+      },
+      "timestamp": "2026-05-06T05:19:14.238108+00:00"
+    },
+    {
+      "name": "agent_completed",
+      "payload": {
+        "agent": "writer",
+        "llm_provider": "openai",
+        "fallback_reason": null,
+        "latency_seconds": 12.631567415999598
+      },
+      "timestamp": "2026-05-06T05:19:26.871498+00:00"
+    },
+    {
+      "name": "route_decision",
+      "payload": {
+        "agent": "supervisor",
+        "next_route": "done",
+        "iteration": 4,
+        "has_sources": true,
+        "has_research_notes": true,
+        "has_analysis_notes": true,
+        "has_final_answer": true
+      },
+      "timestamp": "2026-05-06T05:19:26.874504+00:00"
+    },
+    {
+      "name": "workflow_completed",
+      "payload": {
+        "engine": "langgraph",
+        "iterations": 4,
+        "route_history": [
+          "researcher",
+          "analyst",
+          "writer",
+          "done"
+        ],
+        "error_count": 0
+      },
+      "timestamp": "2026-05-06T05:19:26.878100+00:00"
+    }
+  ],
+  "errors": [],
+  "metrics": {
+    "source_count": 5,
+    "engine": "langgraph",
+    "duration_seconds": 27.74982
+  },
+  "started_at": "2026-05-06T05:18:59.128251Z",
+  "completed_at": "2026-05-06T05:19:26.878071Z"
+}

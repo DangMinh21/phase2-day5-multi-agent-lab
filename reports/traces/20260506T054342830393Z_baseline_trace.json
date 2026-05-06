@@ -1,0 +1,56 @@
+{
+  "request": {
+    "query": "Research GraphRAG state-of-the-art and write a 500-word summary",
+    "max_sources": 5,
+    "audience": "technical learners"
+  },
+  "iteration": 0,
+  "next_route": "supervisor",
+  "route_history": [],
+  "sources": [],
+  "research_notes": null,
+  "analysis_notes": null,
+  "final_answer": "Mock LLM response.\n\nTopic: Query: Research GraphRAG state-of-the-art and write a 500-word summary Write a concise research answer\nKey points:\n- Use the available sources and state fields before making claims.\n- Keep handoffs explicit so the next agent can inspect the reasoning.\n- Mention limitations when evidence is incomplete.\n\nThis deterministic fallback is intended for offline tests and demos.",
+  "agent_results": [
+    {
+      "agent": "writer",
+      "content": "Mock LLM response.\n\nTopic: Query: Research GraphRAG state-of-the-art and write a 500-word summary Write a concise research answer\nKey points:\n- Use the available sources and state fields before making claims.\n- Keep handoffs explicit so the next agent can inspect the reasoning.\n- Mention limitations when evidence is incomplete.\n\nThis deterministic fallback is intended for offline tests and demos.",
+      "metadata": {
+        "mode": "single-agent",
+        "llm_provider": "mock"
+      },
+      "usage": {
+        "input_tokens": 29,
+        "output_tokens": 60,
+        "estimated_cost_usd": 0.0
+      },
+      "latency_seconds": null,
+      "success": true
+    }
+  ],
+  "trace": [
+    {
+      "name": "baseline_started",
+      "payload": {
+        "engine": "single-agent"
+      },
+      "timestamp": "2026-05-06T05:43:36.912928+00:00"
+    },
+    {
+      "name": "baseline_completed",
+      "payload": {
+        "engine": "single-agent",
+        "llm_provider": "mock",
+        "error_count": 0
+      },
+      "timestamp": "2026-05-06T05:43:42.830282+00:00"
+    }
+  ],
+  "errors": [],
+  "metrics": {
+    "engine": "single-agent",
+    "duration_seconds": 5.917376
+  },
+  "started_at": "2026-05-06T05:43:36.912841Z",
+  "completed_at": "2026-05-06T05:43:42.830217Z"
+}

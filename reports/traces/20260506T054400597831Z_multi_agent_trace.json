@@ -1,0 +1,303 @@
+{
+  "request": {
+    "query": "Research GraphRAG state-of-the-art and write a 500-word summary",
+    "max_sources": 5,
+    "audience": "technical learners"
+  },
+  "iteration": 4,
+  "next_route": "done",
+  "route_history": [
+    "researcher",
+    "analyst",
+    "writer",
+    "done"
+  ],
+  "sources": [
+    {
+      "title": "Lab Rubric: Multi-Agent Research System",
+      "url": null,
+      "snippet": "The lab rewards role clarity, shared state design, failure guards, benchmarking, and trace explanations.",
+      "metadata": {
+        "topic": "grading rubric",
+        "provider": "local-mock",
+        "fallback_reason": "Tavily fallback: Tavily request failed: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+      }
+    },
+    {
+      "title": "Anthropic: Building Effective Agents",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "snippet": "Agent systems work best when workflows are simple, observable, and built from composable patterns such as routing, parallelization, and evaluation.",
+      "metadata": {
+        "topic": "agent design",
+        "provider": "local-mock",
+        "fallback_reason": "Tavily fallback: Tavily request failed: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+      }
+    },
+    {
+      "title": "LangGraph Concepts",
+      "url": "https://langchain-ai.github.io/langgraph/concepts/",
+      "snippet": "LangGraph models agent applications as stateful graphs with nodes, edges, conditional routing, persistence, and controllable execution.",
+      "metadata": {
+        "topic": "workflow orchestration",
+        "provider": "local-mock",
+        "fallback_reason": "Tavily fallback: Tavily request failed: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+      }
+    },
+    {
+      "title": "LangSmith Tracing Documentation",
+      "url": "https://docs.smith.langchain.com/",
+      "snippet": "LangSmith helps developers trace, debug, evaluate, and monitor LLM applications across development and production workflows.",
+      "metadata": {
+        "topic": "observability",
+        "provider": "local-mock",
+        "fallback_reason": "Tavily fallback: Tavily request failed: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+      }
+    },
+    {
+      "title": "OpenAI Agents SDK Orchestration",
+      "url": "https://developers.openai.com/",
+      "snippet": "Agent orchestration benefits from explicit handoffs, tool boundaries, guardrails, and traceable execution paths.",
+      "metadata": {
+        "topic": "agent orchestration",
+        "provider": "local-mock",
+        "fallback_reason": "Tavily fallback: Tavily request failed: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+      }
+    }
+  ],
+  "research_notes": "Mock LLM response.\n\nTopic: Query: Research GraphRAG state-of-the-art and write a 500-word summary Audience: technical learners Sources: [1] Lab Rubric: Multi-Agent Research System (local)\nKey points:\n- Use the available sources and state fields before making claims.\n- Keep handoffs explicit so the next agent can inspect the reasoning.\n- Mention limitations when evidence is incomplete.\n\nThis deterministic fallback is intended for offline tests and demos.",
+  "analysis_notes": "Mock LLM response.\n\nTopic: Query: Research GraphRAG state-of-the-art and write a 500-word summary Research notes: Mock LLM response\nKey points:\n- Use the available sources and state fields before making claims.\n- Keep handoffs explicit so the next agent can inspect the reasoning.\n- Mention limitations when evidence is incomplete.\n\nThis deterministic fallback is intended for offline tests and demos.",
+  "final_answer": "Mock LLM response.\n\nTopic: Query: Research GraphRAG state-of-the-art and write a 500-word summary Audience: technical learners Research notes: Mock LLM response\nKey points:\n- Use the available sources and state fields before making claims.\n- Keep handoffs explicit so the next agent can inspect the reasoning.\n- Mention limitations when evidence is incomplete.\n\nThis deterministic fallback is intended for offline tests and demos.\n\nSource references:\n[1] Lab Rubric: Multi-Agent Research System - local\n[2] Anthropic: Building Effective Agents - https://www.anthropic.com/engineering/building-effective-agents\n[3] LangGraph Concepts - https://langchain-ai.github.io/langgraph/concepts/\n[4] LangSmith Tracing Documentation - https://docs.smith.langchain.com/\n[5] OpenAI Agents SDK Orchestration - https://developers.openai.com/",
+  "agent_results": [
+    {
+      "agent": "supervisor",
+      "content": "Next route: researcher",
+      "metadata": {
+        "next_route": "researcher",
+        "iteration": 1
+      },
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": null,
+      "success": true
+    },
+    {
+      "agent": "researcher",
+      "content": "Mock LLM response.\n\nTopic: Query: Research GraphRAG state-of-the-art and write a 500-word summary Audience: technical learners Sources: [1] Lab Rubric: Multi-Agent Research System (local)\nKey points:\n- Use the available sources and state fields before making claims.\n- Keep handoffs explicit so the next agent can inspect the reasoning.\n- Mention limitations when evidence is incomplete.\n\nThis deterministic fallback is intended for offline tests and demos.",
+      "metadata": {
+        "source_count": 5,
+        "search_provider": "local-mock",
+        "llm_provider": "mock",
+        "fallback_reason": "Tavily fallback: Tavily request failed: <urlopen error [Errno 8] nodename nor servname provided, or not known>"
+      },
+      "usage": {
+        "input_tokens": 143,
+        "output_tokens": 66,
+        "estimated_cost_usd": 0.0
+      },
+      "latency_seconds": 7.135057082999992,
+      "success": true
+    },
+    {
+      "agent": "supervisor",
+      "content": "Next route: analyst",
+      "metadata": {
+        "next_route": "analyst",
+        "iteration": 2
+      },
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": null,
+      "success": true
+    },
+    {
+      "agent": "analyst",
+      "content": "Mock LLM response.\n\nTopic: Query: Research GraphRAG state-of-the-art and write a 500-word summary Research notes: Mock LLM response\nKey points:\n- Use the available sources and state fields before making claims.\n- Keep handoffs explicit so the next agent can inspect the reasoning.\n- Mention limitations when evidence is incomplete.\n\nThis deterministic fallback is intended for offline tests and demos.",
+      "metadata": {
+        "llm_provider": "mock",
+        "fallback_reason": "OpenAI fallback: Connection error."
+      },
+      "usage": {
+        "input_tokens": 109,
+        "output_tokens": 60,
+        "estimated_cost_usd": 0.0
+      },
+      "latency_seconds": 5.273740667000311,
+      "success": true
+    },
+    {
+      "agent": "supervisor",
+      "content": "Next route: writer",
+      "metadata": {
+        "next_route": "writer",
+        "iteration": 3
+      },
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": null,
+      "success": true
+    },
+    {
+      "agent": "writer",
+      "content": "Mock LLM response.\n\nTopic: Query: Research GraphRAG state-of-the-art and write a 500-word summary Audience: technical learners Research notes: Mock LLM response\nKey points:\n- Use the available sources and state fields before making claims.\n- Keep handoffs explicit so the next agent can inspect the reasoning.\n- Mention limitations when evidence is incomplete.\n\nThis deterministic fallback is intended for offline tests and demos.\n\nSource references:\n[1] Lab Rubric: Multi-Agent Research System - local\n[2] Anthropic: Building Effective Agents - https://www.anthropic.com/engineering/building-effective-agents\n[3] LangGraph Concepts - https://langchain-ai.github.io/langgraph/concepts/\n[4] LangSmith Tracing Documentation - https://docs.smith.langchain.com/\n[5] OpenAI Agents SDK Orchestration - https://developers.openai.com/",
+      "metadata": {
+        "llm_provider": "mock",
+        "fallback_reason": "OpenAI fallback: Connection error."
+      },
+      "usage": {
+        "input_tokens": 212,
+        "output_tokens": 63,
+        "estimated_cost_usd": 0.0
+      },
+      "latency_seconds": 5.353556333000597,
+      "success": true
+    },
+    {
+      "agent": "supervisor",
+      "content": "Next route: done",
+      "metadata": {
+        "next_route": "done",
+        "iteration": 4
+      },
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": null,
+      "success": true
+    }
+  ],
+  "trace": [
+    {
+      "name": "workflow_started",
+      "payload": {
+        "engine": "langgraph"
+      },
+      "timestamp": "2026-05-06T05:43:42.834744+00:00"
+    },
+    {
+      "name": "workflow_engine_fallback",
+      "payload": {
+        "engine": "local-loop",
+        "reason": "LangGraph is not installed. Run `make install` for the full graph engine."
+      },
+      "timestamp": "2026-05-06T05:43:42.835045+00:00"
+    },
+    {
+      "name": "route_decision",
+      "payload": {
+        "agent": "supervisor",
+        "next_route": "researcher",
+        "iteration": 1,
+        "has_sources": false,
+        "has_research_notes": false,
+        "has_analysis_notes": false,
+        "has_final_answer": false
+      },
+      "timestamp": "2026-05-06T05:43:42.835104+00:00"
+    },
+    {
+      "name": "agent_completed",
+      "payload": {
+        "agent": "researcher",
+        "source_count": 5,
+        "search_provider": "local-mock",
+        "llm_provider": "mock",
+        "fallback_reason": "Tavily fallback: Tavily request failed: <urlopen error [Errno 8] nodename nor servname provided, or not known>",
+        "latency_seconds": 7.134981040999264
+      },
+      "timestamp": "2026-05-06T05:43:49.970175+00:00"
+    },
+    {
+      "name": "route_decision",
+      "payload": {
+        "agent": "supervisor",
+        "next_route": "analyst",
+        "iteration": 2,
+        "has_sources": true,
+        "has_research_notes": true,
+        "has_analysis_notes": false,
+        "has_final_answer": false
+      },
+      "timestamp": "2026-05-06T05:43:49.970296+00:00"
+    },
+    {
+      "name": "agent_completed",
+      "payload": {
+        "agent": "analyst",
+        "llm_provider": "mock",
+        "fallback_reason": "OpenAI fallback: Connection error.",
+        "latency_seconds": 5.273705208999672
+      },
+      "timestamp": "2026-05-06T05:43:55.244065+00:00"
+    },
+    {
+      "name": "route_decision",
+      "payload": {
+        "agent": "supervisor",
+        "next_route": "writer",
+        "iteration": 3,
+        "has_sources": true,
+        "has_research_notes": true,
+        "has_analysis_notes": true,
+        "has_final_answer": false
+      },
+      "timestamp": "2026-05-06T05:43:55.244122+00:00"
+    },
+    {
+      "name": "agent_completed",
+      "payload": {
+        "agent": "writer",
+        "llm_provider": "mock",
+        "fallback_reason": "OpenAI fallback: Connection error.",
+        "latency_seconds": 5.353511958001036
+      },
+      "timestamp": "2026-05-06T05:44:00.597683+00:00"
+    },
+    {
+      "name": "route_decision",
+      "payload": {
+        "agent": "supervisor",
+        "next_route": "done",
+        "iteration": 4,
+        "has_sources": true,
+        "has_research_notes": true,
+        "has_analysis_notes": true,
+        "has_final_answer": true
+      },
+      "timestamp": "2026-05-06T05:44:00.597760+00:00"
+    },
+    {
+      "name": "workflow_completed",
+      "payload": {
+        "engine": "local-loop",
+        "iterations": 4,
+        "route_history": [
+          "researcher",
+          "analyst",
+          "writer",
+          "done"
+        ],
+        "error_count": 0
+      },
+      "timestamp": "2026-05-06T05:44:00.597785+00:00"
+    }
+  ],
+  "errors": [],
+  "metrics": {
+    "engine": "local-loop",
+    "source_count": 5,
+    "duration_seconds": 17.763041
+  },
+  "started_at": "2026-05-06T05:43:42.834730Z",
+  "completed_at": "2026-05-06T05:44:00.597771Z"
+}

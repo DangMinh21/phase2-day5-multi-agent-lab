@@ -1,0 +1,303 @@
+{
+  "request": {
+    "query": "Compare single-agent and multi-agent workflows for customer support",
+    "max_sources": 5,
+    "audience": "technical learners"
+  },
+  "iteration": 4,
+  "next_route": "done",
+  "route_history": [
+    "researcher",
+    "analyst",
+    "writer",
+    "done"
+  ],
+  "sources": [
+    {
+      "title": "Anthropic: Building Effective Agents",
+      "url": "https://www.anthropic.com/engineering/building-effective-agents",
+      "snippet": "Agent systems work best when workflows are simple, observable, and built from composable patterns such as routing, parallelization, and evaluation.",
+      "metadata": {
+        "topic": "agent design",
+        "provider": "local-mock",
+        "fallback_reason": "TAVILY_API_KEY is not set"
+      }
+    },
+    {
+      "title": "LangSmith Tracing Documentation",
+      "url": "https://docs.smith.langchain.com/",
+      "snippet": "LangSmith helps developers trace, debug, evaluate, and monitor LLM applications across development and production workflows.",
+      "metadata": {
+        "topic": "observability",
+        "provider": "local-mock",
+        "fallback_reason": "TAVILY_API_KEY is not set"
+      }
+    },
+    {
+      "title": "Lab Rubric: Multi-Agent Research System",
+      "url": null,
+      "snippet": "The lab rewards role clarity, shared state design, failure guards, benchmarking, and trace explanations.",
+      "metadata": {
+        "topic": "grading rubric",
+        "provider": "local-mock",
+        "fallback_reason": "TAVILY_API_KEY is not set"
+      }
+    },
+    {
+      "title": "LangGraph Concepts",
+      "url": "https://langchain-ai.github.io/langgraph/concepts/",
+      "snippet": "LangGraph models agent applications as stateful graphs with nodes, edges, conditional routing, persistence, and controllable execution.",
+      "metadata": {
+        "topic": "workflow orchestration",
+        "provider": "local-mock",
+        "fallback_reason": "TAVILY_API_KEY is not set"
+      }
+    },
+    {
+      "title": "OpenAI Agents SDK Orchestration",
+      "url": "https://developers.openai.com/",
+      "snippet": "Agent orchestration benefits from explicit handoffs, tool boundaries, guardrails, and traceable execution paths.",
+      "metadata": {
+        "topic": "agent orchestration",
+        "provider": "local-mock",
+        "fallback_reason": "TAVILY_API_KEY is not set"
+      }
+    }
+  ],
+  "research_notes": "Mock LLM response.\n\nTopic: Query: Compare single-agent and multi-agent workflows for customer support Audience: technical learners Sources: [1] Anthropic: Building Effective Agents (https\nKey points:\n- Use the available sources and state fields before making claims.\n- Keep handoffs explicit so the next agent can inspect the reasoning.\n- Mention limitations when evidence is incomplete.\n\nThis deterministic fallback is intended for offline tests and demos.",
+  "analysis_notes": "Mock LLM response.\n\nTopic: Query: Compare single-agent and multi-agent workflows for customer support Research notes: Mock LLM response\nKey points:\n- Use the available sources and state fields before making claims.\n- Keep handoffs explicit so the next agent can inspect the reasoning.\n- Mention limitations when evidence is incomplete.\n\nThis deterministic fallback is intended for offline tests and demos.",
+  "final_answer": "Mock LLM response.\n\nTopic: Query: Compare single-agent and multi-agent workflows for customer support Audience: technical learners Research notes: Mock LLM response\nKey points:\n- Use the available sources and state fields before making claims.\n- Keep handoffs explicit so the next agent can inspect the reasoning.\n- Mention limitations when evidence is incomplete.\n\nThis deterministic fallback is intended for offline tests and demos.\n\nSource references:\n[1] Anthropic: Building Effective Agents - https://www.anthropic.com/engineering/building-effective-agents\n[2] LangSmith Tracing Documentation - https://docs.smith.langchain.com/\n[3] Lab Rubric: Multi-Agent Research System - local\n[4] LangGraph Concepts - https://langchain-ai.github.io/langgraph/concepts/\n[5] OpenAI Agents SDK Orchestration - https://developers.openai.com/",
+  "agent_results": [
+    {
+      "agent": "supervisor",
+      "content": "Next route: researcher",
+      "metadata": {
+        "next_route": "researcher",
+        "iteration": 1
+      },
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": null,
+      "success": true
+    },
+    {
+      "agent": "researcher",
+      "content": "Mock LLM response.\n\nTopic: Query: Compare single-agent and multi-agent workflows for customer support Audience: technical learners Sources: [1] Anthropic: Building Effective Agents (https\nKey points:\n- Use the available sources and state fields before making claims.\n- Keep handoffs explicit so the next agent can inspect the reasoning.\n- Mention limitations when evidence is incomplete.\n\nThis deterministic fallback is intended for offline tests and demos.",
+      "metadata": {
+        "source_count": 5,
+        "search_provider": "local-mock",
+        "llm_provider": "mock",
+        "fallback_reason": "TAVILY_API_KEY is not set"
+      },
+      "usage": {
+        "input_tokens": 143,
+        "output_tokens": 65,
+        "estimated_cost_usd": 0.0
+      },
+      "latency_seconds": 0.000050958000429091044,
+      "success": true
+    },
+    {
+      "agent": "supervisor",
+      "content": "Next route: analyst",
+      "metadata": {
+        "next_route": "analyst",
+        "iteration": 2
+      },
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": null,
+      "success": true
+    },
+    {
+      "agent": "analyst",
+      "content": "Mock LLM response.\n\nTopic: Query: Compare single-agent and multi-agent workflows for customer support Research notes: Mock LLM response\nKey points:\n- Use the available sources and state fields before making claims.\n- Keep handoffs explicit so the next agent can inspect the reasoning.\n- Mention limitations when evidence is incomplete.\n\nThis deterministic fallback is intended for offline tests and demos.",
+      "metadata": {
+        "llm_provider": "mock",
+        "fallback_reason": "OPENAI_API_KEY is not set"
+      },
+      "usage": {
+        "input_tokens": 108,
+        "output_tokens": 60,
+        "estimated_cost_usd": 0.0
+      },
+      "latency_seconds": 0.000013541999578592367,
+      "success": true
+    },
+    {
+      "agent": "supervisor",
+      "content": "Next route: writer",
+      "metadata": {
+        "next_route": "writer",
+        "iteration": 3
+      },
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": null,
+      "success": true
+    },
+    {
+      "agent": "writer",
+      "content": "Mock LLM response.\n\nTopic: Query: Compare single-agent and multi-agent workflows for customer support Audience: technical learners Research notes: Mock LLM response\nKey points:\n- Use the available sources and state fields before making claims.\n- Keep handoffs explicit so the next agent can inspect the reasoning.\n- Mention limitations when evidence is incomplete.\n\nThis deterministic fallback is intended for offline tests and demos.\n\nSource references:\n[1] Anthropic: Building Effective Agents - https://www.anthropic.com/engineering/building-effective-agents\n[2] LangSmith Tracing Documentation - https://docs.smith.langchain.com/\n[3] Lab Rubric: Multi-Agent Research System - local\n[4] LangGraph Concepts - https://langchain-ai.github.io/langgraph/concepts/\n[5] OpenAI Agents SDK Orchestration - https://developers.openai.com/",
+      "metadata": {
+        "llm_provider": "mock",
+        "fallback_reason": "OPENAI_API_KEY is not set"
+      },
+      "usage": {
+        "input_tokens": 211,
+        "output_tokens": 63,
+        "estimated_cost_usd": 0.0
+      },
+      "latency_seconds": 0.000028833999749622308,
+      "success": true
+    },
+    {
+      "agent": "supervisor",
+      "content": "Next route: done",
+      "metadata": {
+        "next_route": "done",
+        "iteration": 4
+      },
+      "usage": {
+        "input_tokens": null,
+        "output_tokens": null,
+        "estimated_cost_usd": null
+      },
+      "latency_seconds": null,
+      "success": true
+    }
+  ],
+  "trace": [
+    {
+      "name": "workflow_started",
+      "payload": {
+        "engine": "langgraph"
+      },
+      "timestamp": "2026-05-06T04:54:30.570637+00:00"
+    },
+    {
+      "name": "workflow_engine_fallback",
+      "payload": {
+        "engine": "local-loop",
+        "reason": "LangGraph is not installed. Run `make install` for the full graph engine."
+      },
+      "timestamp": "2026-05-06T04:54:30.570679+00:00"
+    },
+    {
+      "name": "route_decision",
+      "payload": {
+        "agent": "supervisor",
+        "next_route": "researcher",
+        "iteration": 1,
+        "has_sources": false,
+        "has_research_notes": false,
+        "has_analysis_notes": false,
+        "has_final_answer": false
+      },
+      "timestamp": "2026-05-06T04:54:30.570684+00:00"
+    },
+    {
+      "name": "agent_completed",
+      "payload": {
+        "agent": "researcher",
+        "source_count": 5,
+        "search_provider": "local-mock",
+        "llm_provider": "mock",
+        "fallback_reason": "TAVILY_API_KEY is not set",
+        "latency_seconds": 0.00004770799932884984
+      },
+      "timestamp": "2026-05-06T04:54:30.570737+00:00"
+    },
+    {
+      "name": "route_decision",
+      "payload": {
+        "agent": "supervisor",
+        "next_route": "analyst",
+        "iteration": 2,
+        "has_sources": true,
+        "has_research_notes": true,
+        "has_analysis_notes": false,
+        "has_final_answer": false
+      },
+      "timestamp": "2026-05-06T04:54:30.570745+00:00"
+    },
+    {
+      "name": "agent_completed",
+      "payload": {
+        "agent": "analyst",
+        "llm_provider": "mock",
+        "fallback_reason": "OPENAI_API_KEY is not set",
+        "latency_seconds": 0.000011166999684064649
+      },
+      "timestamp": "2026-05-06T04:54:30.570760+00:00"
+    },
+    {
+      "name": "route_decision",
+      "payload": {
+        "agent": "supervisor",
+        "next_route": "writer",
+        "iteration": 3,
+        "has_sources": true,
+        "has_research_notes": true,
+        "has_analysis_notes": true,
+        "has_final_answer": false
+      },
+      "timestamp": "2026-05-06T04:54:30.570765+00:00"
+    },
+    {
+      "name": "agent_completed",
+      "payload": {
+        "agent": "writer",
+        "llm_provider": "mock",
+        "fallback_reason": "OPENAI_API_KEY is not set",
+        "latency_seconds": 0.000026166999305132776
+      },
+      "timestamp": "2026-05-06T04:54:30.570796+00:00"
+    },
+    {
+      "name": "route_decision",
+      "payload": {
+        "agent": "supervisor",
+        "next_route": "done",
+        "iteration": 4,
+        "has_sources": true,
+        "has_research_notes": true,
+        "has_analysis_notes": true,
+        "has_final_answer": true
+      },
+      "timestamp": "2026-05-06T04:54:30.570801+00:00"
+    },
+    {
+      "name": "workflow_completed",
+      "payload": {
+        "engine": "local-loop",
+        "iterations": 4,
+        "route_history": [
+          "researcher",
+          "analyst",
+          "writer",
+          "done"
+        ],
+        "error_count": 0
+      },
+      "timestamp": "2026-05-06T04:54:30.570807+00:00"
+    }
+  ],
+  "errors": [],
+  "metrics": {
+    "engine": "local-loop",
+    "source_count": 5,
+    "duration_seconds": 0.000168
+  },
+  "started_at": "2026-05-06T04:54:30.570636Z",
+  "completed_at": "2026-05-06T04:54:30.570804Z"
+}
